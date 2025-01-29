@@ -5,7 +5,7 @@ var map1 = L.map('map', {
     smoothWheelZoom: true,
     smoothSensitivity: 3, 
   }).setView([-41.29012931030752, 174.76792012621496], 5);
-  
+
   var geocoder = L.Control.geocoder({
   })
     .on('markgeocode', function(e) {
@@ -16,9 +16,6 @@ var map1 = L.map('map', {
   
   var markerMap = {};
     // initialise lists of markers for clusters
-  var markers = L.markerClusterGroup({
-    showCoverageOnHover: false
-  });
   
   L.control.zoom({
     position: 'topright'
@@ -32,13 +29,6 @@ var map1 = L.map('map', {
   
   lyr_streets.addTo(map1);
   
-  // Add the sidebar
-  var sidebar1 = L.control.sidebar('sidebar', {
-      position: 'left',
-      closeButton: true,
-      autoPan: true
-  }).addTo(map1);
-  
   // Fetch the JSON from local file, parse through
   fetch('https://tong-jt.github.io/map-test/locations.json')
   .then(response => response.json())
@@ -46,30 +36,33 @@ var map1 = L.map('map', {
 
     // Parsing through each individual entry and extract info
     data.features.forEach(function(feature) {
-      var title = feature.properties.name;   // Extract title from GeoJSON
-      var category = feature.properties.category; // Extract category from GeoJSON
+      var id = feature.properties.id;
+      var coordinates = feature.geometry.coordinates;
+      var title = feature.properties.name;
+      var category = feature.properties.category;
 
+      markerMap[id] = {
+        properties: feature.properties
+      };
+      
       // Append the dynamic content (title and category) to the selectiondiv
-      $(".selectiondiv").append('<div class="locationdiv"><strong>' + title + '</strong><br>' + category + '</div>');
+      $(".selectiondiv").append('<div id="' + id + '" class="locationdiv"><strong>' + title + '</strong><br>' + category + '</div>');
+
+      const locationSection = document.getElementById(id);
+      
+      locationSection.addEventListener('click', function() {
+        console.log(id);
+        openForm(markerMap[id].properties);
+      });
+
+      
     });
 
   })
   .catch(error => console.error('Error loading GeoJSON:', error));
-
-  
-    function showSidebar1(properties) {
-      var marker = markerMap[properties.id].marker;
-      var latLng = marker.getLatLng();
-    
-      var offsetLatLng = L.latLng(latLng.lat, latLng.lng - 0.01);
-    
-      map1.setView(offsetLatLng, 14);
-      sidebar1.setContent('<h5><em>' + properties.category + '</em></h5><h4>' + properties.name + '</h4><p>' + properties.description + '</p>');
-      sidebar1.show();
-    }
   
   //Adding marker on click
-      var clickMarker;
+  var clickMarker;
   
   function addMarkeronClick(e) {
     if(clickMarker != null) {
@@ -80,7 +73,7 @@ var map1 = L.map('map', {
           map1.addLayer(clickMarker);
   }
   
-      map1.on('click', addMarkeronClick);
+  map1.on('click', addMarkeronClick);
   
   
   
