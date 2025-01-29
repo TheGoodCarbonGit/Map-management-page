@@ -14,7 +14,7 @@ var map1 = L.map('map', {
     })
     .addTo(map1);
   
-  var markerMap = {};
+  var locations = {};
     // initialise lists of markers for clusters
   
   L.control.zoom({
@@ -41,7 +41,7 @@ var map1 = L.map('map', {
       var title = feature.properties.name;
       var category = feature.properties.category;
 
-      markerMap[id] = {
+      locations[id] = {
         properties: feature.properties
       };
       
@@ -52,7 +52,7 @@ var map1 = L.map('map', {
       
       locationSection.addEventListener('click', function() {
         console.log(id);
-        openForm(markerMap[id].properties);
+        openForm(locations[id]);
       });
 
       
@@ -60,6 +60,10 @@ var map1 = L.map('map', {
 
   })
   .catch(error => console.error('Error loading GeoJSON:', error));
+
+  function openForm(feature) {
+    
+  }
   
   //Adding marker on click
   var clickMarker;
