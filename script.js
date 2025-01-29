@@ -37,9 +37,9 @@ var map1 = L.map('map', {
     // Parsing through each individual entry and extract info
     data.features.forEach(function(feature) {
       var id = feature.properties.id;
-      var coordinates = feature.geometry.coordinates;
       var title = feature.properties.name;
       var category = feature.properties.category;
+      
 
       locations[id] = {
         properties: feature.properties
@@ -62,6 +62,15 @@ var map1 = L.map('map', {
   .catch(error => console.error('Error loading GeoJSON:', error));
 
   function openForm(feature) {
+    var id = feature.properties.id;
+    // var coordinates = feature.geometry.coordinates;
+    var title = feature.properties.name;
+    var category = feature.properties.category;
+    var description = feature.properties.description;
+
+    $(locationname).val(title);
+    $(locationtype).val(category);
+    $(descriptionfield).val(description);
     
   }
   
