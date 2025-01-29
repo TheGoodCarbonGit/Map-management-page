@@ -83,14 +83,18 @@
 
 }
 
+#management-plugin > div {
+    margin: 1%;
+}
+
 #control-div {
     display: flex;
     flex-direction: column;
     align-items: center;
     background-color: #E97B29;
-    margin-right: 5%;
     padding: 1%;
     border-radius: 20px;
+    height: 90vh;
 }
 
 #form-div {
@@ -101,14 +105,18 @@
 
 #selection-container {
     flex-grow: 1;
-    max-height: 300px;
     width: 100%;
     overflow-y: scroll;
+    margin: 10px;
+    border-radius: 10px;
+    background-color: #5b2700;
+    padding: 10px;
 }
 
 .locationdiv{
-    padding: 2px;
+    padding: 5px;
     color: white;
     margin: 5px;
-    background-color: rgb(226, 43, 43);
+    border-radius: 10px;
+    background-color: #bf3938;
 }

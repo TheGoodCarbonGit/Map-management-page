@@ -39,6 +39,10 @@
     <script src="https://unpkg.com/leaflet.markercluster@1.3.0/dist/leaflet.markercluster.js"></script>
 
     <script src="https://mutsuyuki.github.io/Leaflet.SmoothWheelZoom/SmoothWheelZoom.js"></script>
+
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 </head>
 
 <body>
@@ -48,50 +52,7 @@
                 <div id="search-container">
                     <input type="text" placeholder="Search..">
                 </div>
-                <div id="selection-container">
-                    <div class="locationdiv">
-                        Test Location<br>
-                        Text Type
-                    </div><div class="locationdiv">
-                        Test Location<br>
-                        Text Type
-                    </div>
-                    <div class="locationdiv">
-                        Test Location<br>
-                        Text Type
-                    </div>
-                    <div class="locationdiv">
-                        Test Location<br>
-                        Text Type
-                    </div>
-                    <div class="locationdiv">
-                        Test Location<br>
-                        Text Type
-                    </div>
-                    <div class="locationdiv">
-                        Test Location<br>
-                        Text Type
-                    </div>
-                    <div class="locationdiv">
-                        Test Location<br>
-                        Text Type
-                    </div>
-                    <div class="locationdiv">
-                        Test Location<br>
-                        Text Type
-                    </div>
-                    <div class="locationdiv">
-                        Test Location<br>
-                        Text Type
-                    </div>
-                    <div class="locationdiv">
-                        Test Location<br>
-                        Text Type
-                    </div>
-                    <div class="locationdiv">
-                        Test Location<br>
-                        Text Type
-                    </div>
+                <div id="selection-container" class="selectiondiv">
                 </div>
                 <div id="addition-container"><button>Add New Location</button></div>
             </div>
@@ -109,43 +70,17 @@
                     </select><br>
                     <label for="descriptionfield">Description</label><br>
                     <textarea id="descriptionfield" name="descriptionfield"></textarea><br>
+                    <div id="plugin"> 
+                        <label for="map">Location</label><br>
+                        <div class="map" id="map"></div>
+                        <div id="sidebar"></div>
+                    </div>
+                    <br>
                     <input type="submit" value="Submit">
 
                 </form>
-                
             </div>
-        </div>
-        <div id="plugin"> 
-            <div id="header-bar">
-                <div class="search-container">
-                    <input type="text" id="search-bar" placeholder="Search..." oninput="handleSearch()">
-                    <div id="search-results"></div>
-                </div>
-                <div class="filter-buttons">
-                    <label>
-                        <input type="checkbox" id="good-friend" onchange="updateMarkers()" checked>
-                        Good Friend
-                    </label>
-                    <label>
-                        <input type="checkbox" id="project" onchange="updateMarkers()" checked>
-                        Project
-                    </label>
-                    <label>
-                        <input type="checkbox" id="carbon-farmer" onchange="updateMarkers()" checked>
-                        Carbon Farmer
-                    </label>
-                    <label>
-                        <input type="checkbox" id="donor-grants" onchange="updateMarkers()" checked>
-                        Donor
-                    </label>
-                    <label>
-                        <input type="checkbox" id="store" onchange="updateMarkers()" checked>
-                        Store
-                    </label>
-                </div>
-            </div>
-            <div class="map" id="map"></div>
-            <div id="sidebar"></div>
+            
         </div>
     </main>
     <script src="script.js"></script>
