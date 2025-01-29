@@ -39,10 +39,12 @@ var map1 = L.map('map', {
       var id = feature.properties.id;
       var title = feature.properties.name;
       var category = feature.properties.category;
+      var coordinates = feature.geometry.coordinates;
       
 
       locations[id] = {
-        properties: feature.properties
+        properties: feature.properties,
+        coordinates: [coordinates[1], coordinates[0]] 
       };
       
       // Append the dynamic content (title and category) to the selectiondiv
@@ -63,15 +65,15 @@ var map1 = L.map('map', {
 
   function openForm(feature) {
     var id = feature.properties.id;
-    // var coordinates = feature.geometry.coordinates;
     var title = feature.properties.name;
     var category = feature.properties.category;
     var description = feature.properties.description;
+    var coordinates = feature.coordinates;
 
     $(locationname).val(title);
     $(locationtype).val(category);
     $(descriptionfield).val(description);
-    
+    var marker = L.marker(coordinates).addTo(map1);
   }
   
   //Adding marker on click
