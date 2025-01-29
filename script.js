@@ -5,7 +5,14 @@ var map1 = L.map('map', {
     smoothWheelZoom: true,
     smoothSensitivity: 3, 
   }).setView([-41.29012931030752, 174.76792012621496], 5);
-  L.Control.geocoder().addTo(map1);
+  
+  var geocoder = L.Control.geocoder({
+  })
+    .on('markgeocode', function(e) {
+      coords = e.geocode.center;
+      console.log(coords.lat + ", " + coords.lng)
+    })
+    .addTo(map1);
   
   var markerMap = {};
     // initialise lists of markers for clusters

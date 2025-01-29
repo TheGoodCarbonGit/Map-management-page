@@ -15,6 +15,10 @@
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
         crossorigin=""></script>
 
+    <!-- Geocoder Import -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+
     <!-- FontAwesome Import -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
 
@@ -64,6 +68,38 @@
                 </form>
                 
             </div>
+        </div>
+        <div id="plugin"> 
+            <div id="header-bar">
+                <div class="search-container">
+                    <input type="text" id="search-bar" placeholder="Search..." oninput="handleSearch()">
+                    <div id="search-results"></div>
+                </div>
+                <div class="filter-buttons">
+                    <label>
+                        <input type="checkbox" id="good-friend" onchange="updateMarkers()" checked>
+                        Good Friend
+                    </label>
+                    <label>
+                        <input type="checkbox" id="project" onchange="updateMarkers()" checked>
+                        Project
+                    </label>
+                    <label>
+                        <input type="checkbox" id="carbon-farmer" onchange="updateMarkers()" checked>
+                        Carbon Farmer
+                    </label>
+                    <label>
+                        <input type="checkbox" id="donor-grants" onchange="updateMarkers()" checked>
+                        Donor
+                    </label>
+                    <label>
+                        <input type="checkbox" id="store" onchange="updateMarkers()" checked>
+                        Store
+                    </label>
+                </div>
+            </div>
+            <div class="map" id="map"></div>
+            <div id="sidebar"></div>
         </div>
     </main>
     <script src="script.js"></script>
