@@ -1,0 +1,35 @@
+#management-plugin {
+    display: flex;
+    flex-direction: row;
+
+}
+
+#control-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #E97B29;
+    margin-right: 5%;
+    padding: 1%;
+    border-radius: 20px;
+}
+
+#form-div {
+    background-color: #E97B29;
+    padding: 5%;
+    border-radius: 20px;
+}
+
+#selection-container {
+    flex-grow: 1;
+    max-height: 300px;
+    width: 100%;
+    overflow-y: scroll;
+}
+
+.locationdiv{
+    padding: 2px;
+    color: white;
+    margin: 5px;
+    background-color: rgb(226, 43, 43);
+}
