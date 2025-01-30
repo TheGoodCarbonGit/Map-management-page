@@ -117,6 +117,26 @@ var map1 = L.map('map', {
   });
   }
   
+  // Converts plainJSON to a GeoJSON
+function convertToGeoJson(plain){
+    const geoJSON = {
+        type: "FeatureCollection",
+        features: plain.map(site => ({
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: site.coordinates
+            },
+            properties: {
+                id: site.id,
+                name: site.name,
+                description: site.description,
+                category: site.category
+            }
+        }))
+    };
+    return geoJSON;
+}
   
   
   
