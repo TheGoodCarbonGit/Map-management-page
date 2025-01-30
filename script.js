@@ -19,7 +19,7 @@ var map1 = L.map('map', {
     map1.addLayer(currentMarker);
 
     currentMarker.on('dragend', function (e) {
-    console.log(currentMarker.getLatLng().lat + ", " + currentMarker.getLatLng().lng);
+    // console.log(currentMarker.getLatLng().lat + ", " + currentMarker.getLatLng().lng);
     });
   }
   
@@ -40,7 +40,7 @@ var map1 = L.map('map', {
       map1.setView(coords, 14);
       
       currentMarker.on('dragend', function (e) {
-        console.log(currentMarker.getLatLng().lat + ", " + currentMarker.getLatLng().lng);
+        // console.log(currentMarker.getLatLng().lat + ", " + currentMarker.getLatLng().lng);
       });
     })
     .addTo(map1);
@@ -85,7 +85,7 @@ var map1 = L.map('map', {
       const locationSection = document.getElementById(id);
       
       locationSection.addEventListener('click', function() {
-        console.log(id);
+        // console.log(id);
         openForm(locations[id]);
       });
 
@@ -113,7 +113,7 @@ var map1 = L.map('map', {
     currentMarker = marker;
 
     currentMarker.on('dragend', function (e) {
-    console.log(currentMarker.getLatLng().lat + ", " + currentMarker.getLatLng().lng);
+    // console.log(currentMarker.getLatLng().lat + ", " + currentMarker.getLatLng().lng);
   });
   }
   
