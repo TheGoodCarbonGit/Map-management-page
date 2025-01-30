@@ -1,64 +1,64 @@
-// // Initialise the map
-// var map1 = L.map('map', {
-//     zoomControl: false,
-//     scrollWheelZoom: false,
-//     smoothWheelZoom: true,
-//     smoothSensitivity: 3, 
-//   }).setView([-41.29012931030752, 174.76792012621496], 5);
+// Initialise the map
+var map1 = L.map('map', {
+    zoomControl: false,
+    scrollWheelZoom: false,
+    smoothWheelZoom: true,
+    smoothSensitivity: 3, 
+  }).setView([-41.29012931030752, 174.76792012621496], 5);
 
-//   var currentMarker;
+  var currentMarker;
 
-//   //Adding marker on click
-//   function addMarkeronClick(e) {
-//     if(currentMarker != null) {
-//     map1.removeLayer(currentMarker) //Removes last marker
-//     }
+  //Adding marker on click
+  function addMarkeronClick(e) {
+    if(currentMarker != null) {
+    map1.removeLayer(currentMarker) //Removes last marker
+    }
 
-//     coords = e.latlng;
-//     currentMarker = new L.Marker(coords, {draggable:true});
-//     map1.addLayer(currentMarker);
+    coords = e.latlng;
+    currentMarker = new L.Marker(coords, {draggable:true});
+    map1.addLayer(currentMarker);
 
-//     currentMarker.on('dragend', function (e) {
-//     // console.log(currentMarker.getLatLng().lat + ", " + currentMarker.getLatLng().lng);
-//     });
-//   }
+    currentMarker.on('dragend', function (e) {
+    // console.log(currentMarker.getLatLng().lat + ", " + currentMarker.getLatLng().lng);
+    });
+  }
   
-//   map1.on('click', addMarkeronClick);
+  map1.on('click', addMarkeronClick);
   
-//   // Retrieve coordinates from search
-//   var geocoder = L.Control.geocoder({
-//     defaultMarkGeocode: false
-//   })
-//     .on('markgeocode', function(e) {
-//       if(currentMarker != null) {
-//         map1.removeLayer(currentMarker) //Removes last marker
-//       }
-//       coords = e.geocode.center;
-//       const newMarker = L.marker(coords, {draggable:true});
-//       map1.addLayer(newMarker);
-//       currentMarker = newMarker;
-//       map1.setView(coords, 14);
+  // Retrieve coordinates from search
+  var geocoder = L.Control.geocoder({
+    defaultMarkGeocode: false
+  })
+    .on('markgeocode', function(e) {
+      if(currentMarker != null) {
+        map1.removeLayer(currentMarker) //Removes last marker
+      }
+      coords = e.geocode.center;
+      const newMarker = L.marker(coords, {draggable:true});
+      map1.addLayer(newMarker);
+      currentMarker = newMarker;
+      map1.setView(coords, 14);
       
-//       currentMarker.on('dragend', function (e) {
-//         // console.log(currentMarker.getLatLng().lat + ", " + currentMarker.getLatLng().lng);
-//       });
-//     })
-//     .addTo(map1);
+      currentMarker.on('dragend', function (e) {
+        // console.log(currentMarker.getLatLng().lat + ", " + currentMarker.getLatLng().lng);
+      });
+    })
+    .addTo(map1);
   
   var locations = {};
     // initialise lists of markers for clusters
   
-//   L.control.zoom({
-//     position: 'topright'
-//   }).addTo(map1);
+  L.control.zoom({
+    position: 'topright'
+  }).addTo(map1);
   
-//   // Add the tiles (image of the maps)
-//   var lyr_streets = L.tileLayer('http://basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-//       minZoom: 2,
-//       attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-//   });
+  // Add the tiles (image of the maps)
+  var lyr_streets = L.tileLayer('http://basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+      minZoom: 2,
+      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+  });
   
-//   lyr_streets.addTo(map1);
+  lyr_streets.addTo(map1);
   
   // Fetch the JSON from local file, parse through
   fetch('https://tong-jt.github.io/map-test/plainlocations.json')
@@ -102,21 +102,21 @@
     var description = feature.properties.description;
     var coordinates = feature.coordinates;
 
-    // if (currentMarker != null) {
-    //     map1.removeLayer(currentMarker);
-    // }
+    if (currentMarker != null) {
+        map1.removeLayer(currentMarker);
+    }
 
         $(locationname).val(title);
         $(locationtype).val(category);
         $(descriptionfield).val(description);
 
 
-    // var marker = L.marker(coordinates, {draggable:true}).addTo(map1);
-    // currentMarker = marker;
+    var marker = L.marker(coordinates, {draggable:true}).addTo(map1);
+    currentMarker = marker;
 
-    // currentMarker.on('dragend', function (e) {
-    //     // console.log(currentMarker.getLatLng().lat + ", " + currentMarker.getLatLng().lng);
-    // });
+    currentMarker.on('dragend', function (e) {
+        // console.log(currentMarker.getLatLng().lat + ", " + currentMarker.getLatLng().lng);
+    });
 }
   
   // Converts plainJSON to a GeoJSON
