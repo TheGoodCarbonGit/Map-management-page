@@ -107,9 +107,7 @@ var map1 = L.map('map', {
     }
 
         $(locationname).val(title);
-        $(locationtype).val(category).trigger('change');
-// Force a render update - needed for safari?
-        locationtype.offsetHeight;
+        $(locationtype).focus().blur();
 
         $(descriptionfield).val(description);
 
