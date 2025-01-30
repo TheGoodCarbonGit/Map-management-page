@@ -94,7 +94,7 @@ var map1 = L.map('map', {
 
   })
   .catch(error => console.error('Error loading GeoJSON:', error));
-
+ 
   function openForm(feature) {
     var id = feature.properties.id;
     var title = feature.properties.name;
@@ -102,20 +102,23 @@ var map1 = L.map('map', {
     var description = feature.properties.description;
     var coordinates = feature.coordinates;
 
-    if(currentMarker != null) {
-      map1.removeLayer(currentMarker);
+    if (currentMarker != null) {
+        map1.removeLayer(currentMarker);
     }
 
-    $(locationname).val(title);
-    $(locationtype).val(category);
-    $(descriptionfield).val(description);
+    setTimeout(function() {
+        $(locationname).val(title);
+        $(locationtype).val(category);
+        $(descriptionfield).val(description);
+    }, 0); // This runs the code after the current event loop finishes
+
     var marker = L.marker(coordinates, {draggable:true}).addTo(map1);
     currentMarker = marker;
 
     currentMarker.on('dragend', function (e) {
-    // console.log(currentMarker.getLatLng().lat + ", " + currentMarker.getLatLng().lng);
-  });
-  }
+        // console.log(currentMarker.getLatLng().lat + ", " + currentMarker.getLatLng().lng);
+    });
+}
   
   // Converts plainJSON to a GeoJSON
 function convertToGeoJson(plain){
