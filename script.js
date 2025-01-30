@@ -107,6 +107,7 @@ var map1 = L.map('map', {
     }
 
         $(locationname).val(title);
+        $(locationtype).val(category);
         $(locationtype).focus().blur();
 
         $(descriptionfield).val(description);
