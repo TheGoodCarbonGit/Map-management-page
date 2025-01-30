@@ -102,15 +102,14 @@
     var description = feature.properties.description;
     var coordinates = feature.coordinates;
 
-    if (currentMarker != null) {
-        map1.removeLayer(currentMarker);
-    }
+    // if (currentMarker != null) {
+    //     map1.removeLayer(currentMarker);
+    // }
 
-    setTimeout(function() {
         $(locationname).val(title);
         $(locationtype).val(category);
         $(descriptionfield).val(description);
-    }, 0); // This runs the code after the current event loop finishes
+
 
     // var marker = L.marker(coordinates, {draggable:true}).addTo(map1);
     // currentMarker = marker;
