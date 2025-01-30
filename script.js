@@ -6,11 +6,35 @@ var map1 = L.map('map', {
     smoothSensitivity: 3, 
   }).setView([-41.29012931030752, 174.76792012621496], 5);
 
+  var currentMarker;
+
+  //Adding marker on click
+  function addMarkeronClick(e) {
+    if(currentMarker != null) {
+    map1.removeLayer(currentMarker) //Removes last marker
+    }
+
+    coords = e.latlng;
+    currentMarker = new L.Marker(coords, {draggable:true});
+    map1.addLayer(currentMarker);
+  }
+  
+  map1.on('click', addMarkeronClick);
+  
+  // Retrieve coordinates from search
   var geocoder = L.Control.geocoder({
+    defaultMarkGeocode: false
   })
     .on('markgeocode', function(e) {
+      if(currentMarker != null) {
+        map1.removeLayer(currentMarker) //Removes last marker
+      }
       coords = e.geocode.center;
-      console.log(coords.lat + ", " + coords.lng)
+      const newMarker = L.marker(coords, {draggable:true});
+      map1.addLayer(newMarker);
+      currentMarker = newMarker;
+      map1.setView(coords, 14);
+      
     })
     .addTo(map1);
   
@@ -76,19 +100,6 @@ var map1 = L.map('map', {
     var marker = L.marker(coordinates).addTo(map1);
   }
   
-  //Adding marker on click
-  var clickMarker;
-  
-  function addMarkeronClick(e) {
-    if(clickMarker != null) {
-      map1.removeLayer(clickMarker)
-    }
-  
-    clickMarker = new L.Marker(e.latlng, {draggable:true});
-          map1.addLayer(clickMarker);
-  }
-  
-  map1.on('click', addMarkeronClick);
   
   
   
