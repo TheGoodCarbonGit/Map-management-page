@@ -8,42 +8,42 @@ var map1 = L.map('map', {
 
   var currentMarker;
 
-  //Adding marker on click
-  function addMarkeronClick(e) {
-    if(currentMarker != null) {
-    map1.removeLayer(currentMarker) //Removes last marker
-    }
+//   //Adding marker on click
+//   function addMarkeronClick(e) {
+//     if(currentMarker != null) {
+//     map1.removeLayer(currentMarker) //Removes last marker
+//     }
 
-    coords = e.latlng;
-    currentMarker = new L.Marker(coords, {draggable:true});
-    map1.addLayer(currentMarker);
+//     coords = e.latlng;
+//     currentMarker = new L.Marker(coords, {draggable:true});
+//     map1.addLayer(currentMarker);
 
-    currentMarker.on('dragend', function (e) {
-    // console.log(currentMarker.getLatLng().lat + ", " + currentMarker.getLatLng().lng);
-    });
-  }
+//     currentMarker.on('dragend', function (e) {
+//     // console.log(currentMarker.getLatLng().lat + ", " + currentMarker.getLatLng().lng);
+//     });
+//   }
   
-  map1.on('click', addMarkeronClick);
+//   map1.on('click', addMarkeronClick);
   
-  // Retrieve coordinates from search
-  var geocoder = L.Control.geocoder({
-    defaultMarkGeocode: false
-  })
-    .on('markgeocode', function(e) {
-      if(currentMarker != null) {
-        map1.removeLayer(currentMarker) //Removes last marker
-      }
-      coords = e.geocode.center;
-      const newMarker = L.marker(coords, {draggable:true});
-      map1.addLayer(newMarker);
-      currentMarker = newMarker;
-      map1.setView(coords, 14);
+//   // Retrieve coordinates from search
+//   var geocoder = L.Control.geocoder({
+//     defaultMarkGeocode: false
+//   })
+//     .on('markgeocode', function(e) {
+//       if(currentMarker != null) {
+//         map1.removeLayer(currentMarker) //Removes last marker
+//       }
+//       coords = e.geocode.center;
+//       const newMarker = L.marker(coords, {draggable:true});
+//       map1.addLayer(newMarker);
+//       currentMarker = newMarker;
+//       map1.setView(coords, 14);
       
-      currentMarker.on('dragend', function (e) {
-        // console.log(currentMarker.getLatLng().lat + ", " + currentMarker.getLatLng().lng);
-      });
-    })
-    .addTo(map1);
+//       currentMarker.on('dragend', function (e) {
+//         // console.log(currentMarker.getLatLng().lat + ", " + currentMarker.getLatLng().lng);
+//       });
+//     })
+//     .addTo(map1);
   
   var locations = {};
     // initialise lists of markers for clusters
