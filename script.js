@@ -108,6 +108,8 @@ var map1 = L.map('map', {
 
         $(locationname).val(title);
         $(locationtype).val(category);
+
+        //Force dropdown to register update with safari bug
         $(locationtype).focus().blur();
 
         $(descriptionfield).val(description);
