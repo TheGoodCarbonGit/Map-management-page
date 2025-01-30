@@ -45,8 +45,8 @@
 //     })
 //     .addTo(map1);
   
-//   var locations = {};
-//     // initialise lists of markers for clusters
+  var locations = {};
+    // initialise lists of markers for clusters
   
 //   L.control.zoom({
 //     position: 'topright'
