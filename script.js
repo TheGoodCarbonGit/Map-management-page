@@ -61,10 +61,11 @@ var map1 = L.map('map', {
   lyr_streets.addTo(map1);
   
   // Fetch the JSON from local file, parse through
-  fetch('https://tong-jt.github.io/map-test/locations.json')
+  fetch('https://tong-jt.github.io/map-test/plainlocations.json')
   .then(response => response.json())
-  .then(data => {
-
+  .then(plainjson => { 
+    const data = convertToGeoJson(plainjson)
+    
     // Parsing through each individual entry and extract info
     data.features.forEach(function(feature) {
       var id = feature.properties.id;
