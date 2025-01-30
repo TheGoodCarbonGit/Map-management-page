@@ -8,7 +8,7 @@ var map1 = L.map('map', {
 
   var currentMarker;
 
-  //Adding marker on click
+  //Adding marker on click 
   function addMarkeronClick(e) {
     if(currentMarker != null) {
     map1.removeLayer(currentMarker) //Removes last marker
@@ -108,6 +108,9 @@ var map1 = L.map('map', {
 
         $(locationname).val(title);
         $(locationtype).val(category);
+// Force a render update - needed for safari?
+        locationtype.offsetHeight;
+
         $(descriptionfield).val(description);
 
 
