@@ -91,7 +91,7 @@ var map1 = L.map('map', {
 
       const addbtn = document.getElementById('addbtn');
       addbtn.addEventListener('click', function() {
-        showForm();
+        showFormAdd();
       });
 
       
@@ -150,9 +150,18 @@ function convertToGeoJson(plain){
     return geoJSON;
 }
 
+function showFormEdit() {
+    var form = document.getElementById('formcontents');
+    var deletebtn = document.getElementById('deletebtn');
+    form.style.display = 'block';
+    deletebtn.style.display = 'block';
+}
+
 function showForm() {
     var form = document.getElementById('formcontents');
+    var deletebtn = document.getElementById('deletebtn');
     form.style.display = 'block';
+    deletebtn.style.display = 'none';
 }
   
   
