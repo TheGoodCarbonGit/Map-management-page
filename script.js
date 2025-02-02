@@ -82,11 +82,16 @@ var map1 = L.map('map', {
       // Append the dynamic content (title and category) to the selectiondiv
       $(".selectiondiv").append('<div id="' + id + '" class="locationdiv"><strong>' + title + '</strong><br>' + category + '</div>');
 
+
       const locationSection = document.getElementById(id);
-      
       locationSection.addEventListener('click', function() {
-        // console.log(id);
+        showForm();
         openForm(locations[id]);
+      });
+
+      const addbtn = document.getElementById('addbtn');
+      addbtn.addEventListener('click', function() {
+        showForm();
       });
 
       
@@ -146,7 +151,8 @@ function convertToGeoJson(plain){
 }
 
 function showForm() {
-
+    var form = document.getElementById('formcontents');
+    form.style.display = 'block';
 }
   
   
