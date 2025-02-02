@@ -123,7 +123,8 @@ var map1 = L.map('map', {
     });
 }
   
-  // Converts plainJSON to a GeoJSON
+
+// Converts plainJSON to a GeoJSON
 function convertToGeoJson(plain){
     const geoJSON = {
         type: "FeatureCollection",
@@ -142,6 +143,10 @@ function convertToGeoJson(plain){
         }))
     };
     return geoJSON;
+}
+
+function showForm() {
+
 }
   
   

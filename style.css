@@ -120,3 +120,18 @@
     border-radius: 10px;
     background-color: #bf3938;
 }
+
+#buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.left-buttons {
+    display: flex;
+    gap: 20px;
+}
+
+form {
+    display: none;
+}
