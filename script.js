@@ -85,7 +85,7 @@ var map1 = L.map('map', {
 
       const locationSection = document.getElementById(id);
       locationSection.addEventListener('click', function() {
-        showForm();
+        showFormEdit();
         openForm(locations[id]);
       });
 
@@ -157,7 +157,7 @@ function showFormEdit() {
     deletebtn.style.display = 'block';
 }
 
-function showForm() {
+function showFormAdd() {
     var form = document.getElementById('formcontents');
     var deletebtn = document.getElementById('deletebtn');
     form.style.display = 'block';
