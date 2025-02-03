@@ -131,7 +131,7 @@ function convertToGeoJson(plain) {
     return geoJSON;
 }
 
-let fetchMethod = 'unselected';
+let fetchMethod = 'UNSELECTED';
 
 function showFormEdit() {
     var form = document.getElementById('formcontents');
@@ -174,11 +174,13 @@ document.getElementById('cancelBtn').addEventListener('click', function (e) {
     e.preventDefault();
     var form = document.getElementById('formcontents');
     if (confirm("Are you sure you want to cancel?") == true) {
+        form.style.display = 'none';
         console.log('You confirmed a cancel');
         if (currentMarker != null) {
             map1.removeLayer(currentMarker) //Removes last marker
         }
         form.reset();
+        fetchMethod = 'UNSELECTED';
       } else {
         console.log('You canceled a cancel???');
       }
