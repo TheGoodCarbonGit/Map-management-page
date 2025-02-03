@@ -172,8 +172,13 @@ document.getElementById('submitBtn').addEventListener('click', function (e) {
 
 document.getElementById('cancelBtn').addEventListener('click', function (e) {
     e.preventDefault();
+    var form = document.getElementById('formcontents');
     if (confirm("Are you sure you want to cancel?") == true) {
         console.log('You confirmed a cancel');
+        if (currentMarker != null) {
+            map1.removeLayer(currentMarker) //Removes last marker
+        }
+        form.reset();
       } else {
         console.log('You canceled a cancel???');
       }
