@@ -153,24 +153,22 @@ function convertToGeoJson(plain){
 
 function showFormEdit() {
     var form = document.getElementById('formcontents');
-    var deletebtn = document.getElementById('deletebtn');
+    var deleteBtn = document.getElementById('deleteBtn');
     form.style.display = 'block';
-    deletebtn.style.display = 'block';
+    deleteBtn.style.display = 'block';
     map1.invalidateSize();
     
 }
 
 function showFormAdd() {
     var form = document.getElementById('formcontents');
-    var deletebtn = document.getElementById('deletebtn');
+    var deleteBtn = document.getElementById('deleteBtn');
     form.style.display = 'block';
-    deletebtn.style.display = 'none';
+    deleteBtn.style.display = 'none';
     map1.invalidateSize();
 }
 
-function checkFormEmpty(){
 
-}
   
   
   
