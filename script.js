@@ -187,7 +187,7 @@ function handleSearch() {
 
         resultItem.addEventListener('click', function() {
           showFormEdit(); 
-          openForm(location);
+          openForm(locations[match]);
         });
 
         $(".selectiondiv").append(resultItem);
@@ -199,6 +199,41 @@ function handleSearch() {
       $(".selectiondiv").append(noResultsItem);
     }
   }
+
+  else {
+    resetSearch();
+  }
+}
+
+function resetSearch() {
+  $("#search-bar").val("");
+  Object.keys(locations).forEach(key => {
+    var feature = locations[key];
+    var id = feature.properties.id;
+    var title = feature.properties.name;
+    var category = feature.properties.category;
+
+    var resultItem = document.createElement('div');
+    resultItem.id = id;
+    resultItem.className = 'locationdiv';
+
+    var titleElement = document.createElement('div');
+    titleElement.className = 'locationtitle';
+    titleElement.textContent = title;
+    resultItem.appendChild(titleElement);
+
+    var categoryElement = document.createElement('div');
+    categoryElement.className = 'category';
+    categoryElement.textContent = category;
+    resultItem.appendChild(categoryElement);
+
+    resultItem.addEventListener('click', function() {
+      showFormEdit(); 
+      openForm(locations[id]);
+    });
+
+    $(".selectiondiv").append(resultItem);
+  });
 }
 
 document.getElementById('submitBtn').addEventListener('click', function (e) {
@@ -224,6 +259,7 @@ document.getElementById('cancelBtn').addEventListener('click', function (e) {
         if (currentMarker != null) {
             map1.removeLayer(currentMarker) //Removes last marker
         }
+        resetSearch();
         form.reset();
         fetchMethod = 'UNSELECTED';
       } else {
