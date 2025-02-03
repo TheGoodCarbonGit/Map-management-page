@@ -156,6 +156,51 @@ function showFormAdd() {
     form.reset();
 }
 
+function handleSearch() {
+  var query = document.getElementById('search-bar').value.toLowerCase();
+
+  if (query !== '') {
+    var matches = Object.keys(locations).filter(function(id) {
+      return locations[id].properties.name.toLowerCase().includes(query);
+    });
+
+    $(".selectiondiv").empty();
+
+    if (matches.length > 0) {
+      matches.forEach(function(match) {
+        var location = locations[match];
+        var markerPoint = location.properties;
+
+        var resultItem = document.createElement('div');
+        resultItem.id = match;
+        resultItem.className = 'locationdiv';
+
+        var titleElement = document.createElement('div');
+        titleElement.className = 'locationtitle';
+        titleElement.textContent = markerPoint.name;
+        resultItem.appendChild(titleElement);
+
+        var categoryElement = document.createElement('div');
+        categoryElement.className = 'category';
+        categoryElement.textContent = markerPoint.category;
+        resultItem.appendChild(categoryElement);
+
+        resultItem.addEventListener('click', function() {
+          showFormEdit(); 
+          openForm(location);
+        });
+
+        $(".selectiondiv").append(resultItem);
+      });
+    } else {
+      var noResultsItem = document.createElement('div');
+      noResultsItem.className = 'search-result-item';
+      noResultsItem.textContent = 'No results found';
+      $(".selectiondiv").append(noResultsItem);
+    }
+  }
+}
+
 document.getElementById('submitBtn').addEventListener('click', function (e) {
     e.preventDefault();
     var name = document.getElementById('locationname').value;
