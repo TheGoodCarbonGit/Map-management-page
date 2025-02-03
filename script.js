@@ -51,6 +51,7 @@ var map1 = L.map('map', {
   L.control.zoom({
     position: 'topright'
   }).addTo(map1);
+
   
   // Add the tiles (image of the maps)
   var lyr_streets = L.tileLayer('http://basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
@@ -155,6 +156,8 @@ function showFormEdit() {
     var deletebtn = document.getElementById('deletebtn');
     form.style.display = 'block';
     deletebtn.style.display = 'block';
+    map1.invalidateSize();
+    
 }
 
 function showFormAdd() {
@@ -162,6 +165,11 @@ function showFormAdd() {
     var deletebtn = document.getElementById('deletebtn');
     form.style.display = 'block';
     deletebtn.style.display = 'none';
+    map1.invalidateSize();
+}
+
+function checkFormEmpty(){
+
 }
   
   
