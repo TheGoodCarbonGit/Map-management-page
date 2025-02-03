@@ -81,7 +81,7 @@ var map1 = L.map('map', {
       };
       
       // Append the dynamic content (title and category) to the selectiondiv
-      $(".selectiondiv").append('<div id="' + id + '" class="locationdiv"><strong>' + title + '</strong><br>' + category + '</div>');
+      $(".selectiondiv").append('<div id="' + id + '" class="locationdiv"><div class="locationtitle">' + title + '</div>' + category + '</div>');
 
 
       const locationSection = document.getElementById(id);
