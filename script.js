@@ -253,7 +253,7 @@ document.getElementById('submitBtn').addEventListener('click', function (e) {
     if (fetchMethod=='ADD'){
         const myHeaders = new Headers();
         myHeaders.append("Accept", "application/json");
-        myHeaders.append("Content-Type", "application/json");
+        myHeaders.append("Content-Type", "application/json;charset=utf-8");
         // const raw = JSON.stringify({
         //   "name": newname,
         //   "coordinates": formattedcoords,
