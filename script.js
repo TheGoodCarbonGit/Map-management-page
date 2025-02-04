@@ -248,7 +248,7 @@ document.getElementById('submitBtn').addEventListener('click', function (e) {
     var type = document.getElementById('locationtype').value;
     var description = document.getElementById('descriptionfield').value;
     var coords = currentMarker.getLatLng();
-    var formattedcoords = "["+coords.lat+", "+coords.lng+"]";
+    var formattedcoords = "["+coords.lng+", "+coords.lat+"]";
     console.log(newname+type+description+formattedcoords);
     if (fetchMethod=='ADD'){
         fetch(serverName, {
