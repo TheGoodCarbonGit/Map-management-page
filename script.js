@@ -276,7 +276,18 @@ myHeaders.append("Accept", "application/json");
 //   "description": description
 // });
 
-const raw = '{"name":"'+newname+'", "coordinates":'+formattedcoords+', "category": "'+type+'", "description": "'+description+'"}';
+// const raw = '{"name":"'+newname+'", "coordinates":'+formattedcoords+', "category": "'+type+'", "description": "'+description+'"}';
+
+const raw = JSON.stringify({
+    "name": "hello",
+    "coordinates": [
+      165.56327819824222,
+      -36.92629228365365
+    ],
+    "category": "Good Friend",
+    "description": "hello"
+  });
+  
 
 const requestOptions = {
   method: "POST",
