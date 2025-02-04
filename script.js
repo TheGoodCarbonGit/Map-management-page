@@ -266,7 +266,8 @@ document.getElementById('submitBtn').addEventListener('click', function (e) {
         // .catch(error => console.error('Error:', error));
 
         const myHeaders = new Headers();
-myHeaders.append("Content-Type", "application/json");
+myHeaders.append("Content-Type", "application/json", "");
+myHeaders.append("Accept", "application/json");
 
 const raw = JSON.stringify({
   "name": newname,
