@@ -1,3 +1,5 @@
+var serverName = 'https://mapdb-victest.australiaeast.cloudapp.azure.com/pins';
+
 // Initialise the map
 var map1 = L.map('map', {
     zoomControl: false,
@@ -60,7 +62,7 @@ lyr_streets.addTo(map1);
 
 // Fetch the JSON from local file, parse through
 // fetch('https://tong-jt.github.io/map-test/plainlocations.json')
-fetch('https://mapdb-victest.australiaeast.cloudapp.azure.com/pins', {
+fetch(serverName, {
   method: "GET",
 }).then(response => response.json())
     .then(plainjson => {
@@ -242,13 +244,20 @@ function resetSearch() {
 
 document.getElementById('submitBtn').addEventListener('click', function (e) {
     e.preventDefault();
-    var name = document.getElementById('locationname').value;
+    var newname = document.getElementById('locationname').value;
     var type = document.getElementById('locationtype').value;
     var description = document.getElementById('descriptionfield').value;
     var coords = currentMarker.getLatLng();
-    console.log(name+type+description+coords);
+    console.log(newname+type+description+coords);
     if (fetchMethod=='ADD'){
-//Fetch call for PUSH
+        fetch(serverName, {
+            method: "POST", body: JSON.stringify({
+                name: newname,
+                coordinates: coords,
+                category: type,
+                description: description
+            })
+        })
     } else if (fetchMethod=='EDIT'){
 //Fetch call for PUT
     }
