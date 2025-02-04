@@ -268,12 +268,14 @@ document.getElementById('submitBtn').addEventListener('click', function (e) {
         const myHeaders = new Headers();
 myHeaders.append("Content-Type", "application/json");
 
-const raw = JSON.stringify({
-  "name": newname,
-  "coordinates": formattedcoords,
-  "category": type,
-  "description": description
-});
+// const raw = JSON.stringify({
+//   "name": newname,
+//   "coordinates": formattedcoords,
+//   "category": type,
+//   "description": description
+// });
+
+const raw = '{"name":'+newname+', "coordinates":'+formattedcoords+', "category": '+type+', "description": '+description+'}';
 
 const requestOptions = {
   method: "POST",
