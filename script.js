@@ -59,8 +59,10 @@ var lyr_streets = L.tileLayer('http://basemaps.cartocdn.com/rastertiles/voyager/
 lyr_streets.addTo(map1);
 
 // Fetch the JSON from local file, parse through
-fetch('https://tong-jt.github.io/map-test/plainlocations.json')
-    .then(response => response.json())
+// fetch('https://tong-jt.github.io/map-test/plainlocations.json')
+fetch('https://mapdb-victest.australiaeast.cloudapp.azure.com/pins', {
+  method: "GET",
+}).then(response => response.json())
     .then(plainjson => {
         const data = convertToGeoJson(plainjson)
         // Parsing through each individual entry and extract info
