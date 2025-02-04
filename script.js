@@ -261,28 +261,23 @@ document.getElementById('submitBtn').addEventListener('click', function (e) {
         //   "description": description
         // });
 
-        const raw = '{"name":"'+newname+'", "coordinates":'+formattedcoords+', "category": "'+type+'", "description": "'+description+'"}';
-        // const raw = JSON.stringify({
-        //     "name": "hello",
-        //     "coordinates": [
-        //     165.56327819824222,
-        //     -36.92629228365365
-        //     ],
-        //     "category": "Good Friend",
-        //     "description": "hello"
-        // });
-        const requestOptions = {
-        method: "POST",
-        headers: myHeaders,
-        body: raw,
-        redirect: "follow"
-        };
-        fetch("https://mapdb-victest.australiaeast.cloudapp.azure.com/pins", requestOptions)
-        .then((response) => response.text())
-        .then((result) => console.log(result))
-        .catch((error) => {
-            console.error("Caught error:", error);
-        });  
+        const raw = JSON.stringify({
+            name: newname,
+            coordinates: [coords.lng, coords.lat],  
+            category: type,
+            description: description
+        });
+        console.log("SENT DATA : "+raw)
+        // const raw = '{"name":"'+newname+'", "coordinates":'+formattedcoords+', "category": "'+type+'", "description": "'+description+'"}';
+        fetch(serverName, {
+            method: "POST",
+            headers: myHeaders,
+            body: raw
+        })
+        .then(response => response.json())
+        .then(data => console.log("Success:", data))
+        .catch(error => console.error("Error:", error));
+         
     } else if (fetchMethod=='EDIT'){
 //Fetch call for PUT
     }
