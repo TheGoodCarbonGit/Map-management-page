@@ -129,6 +129,9 @@ function deleteHandler(id){
               .then((response) => response.text())
               .then((result) => console.log(result))
               .catch((error) => console.error(error));
+            resetSearch();
+            form.reset();
+            fetchMethod = 'UNSELECTED';
           } else {
             console.log('You canceled a delete');
           }
