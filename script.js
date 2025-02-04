@@ -299,7 +299,9 @@ const requestOptions = {
 fetch("https://mapdb-victest.australiaeast.cloudapp.azure.com/pins/", requestOptions)
   .then((response) => response.text())
   .then((result) => console.log(result))
-  .catch((error) => console.error(error));
+  .catch((error) => {
+    console.error("Caught error:", error);
+  });
         
     } else if (fetchMethod=='EDIT'){
 //Fetch call for PUT
