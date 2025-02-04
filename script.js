@@ -267,7 +267,7 @@ document.getElementById('submitBtn').addEventListener('click', function (e) {
             category: type,
             description: description
         });
-        console.log("SENT DATA : "+raw)
+        console.log("SENT DATA : "+raw);
         // const raw = '{"name":"'+newname+'", "coordinates":'+formattedcoords+', "category": "'+type+'", "description": "'+description+'"}';
         fetch(serverName, {
             method: "POST",
