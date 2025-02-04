@@ -140,21 +140,21 @@ function showFormEdit() {
     deleteBtn.style.display = 'block';
     map1.invalidateSize();
     fetchMethod = 'EDIT';
-
 }
 
 function showFormAdd() {
-    resetSearch()
-    var form = document.getElementById('formcontents');
-    var deleteBtn = document.getElementById('deleteBtn');
-    form.style.display = 'block';
-    deleteBtn.style.display = 'none';
-    map1.invalidateSize();
-    fetchMethod = 'ADD';
-    if (currentMarker != null) {
-        map1.removeLayer(currentMarker) //Removes last marker
-    }
-    form.reset();
+        resetSearch();
+        var form = document.getElementById('formcontents');
+        var deleteBtn = document.getElementById('deleteBtn');
+        form.style.display = 'block';
+        deleteBtn.style.display = 'none';
+        map1.invalidateSize();
+        fetchMethod = 'ADD';
+        if (currentMarker != null) {
+            map1.removeLayer(currentMarker) //Removes last marker
+        }
+        form.reset();
+    
 }
 
 function handleSearch() {
