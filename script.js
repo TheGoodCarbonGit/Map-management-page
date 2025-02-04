@@ -284,6 +284,15 @@ document.getElementById('submitBtn').addEventListener('click', function (e) {
     var description = document.getElementById('descriptionfield').value;
     var coords = currentMarker.getLatLng();
     var formattedcoords = "["+coords.lng+", "+coords.lat+"]";
+
+    // Data validation in the front end to ensure it is okay
+    var errors = validateData(newname, type, description, formattedcoords);
+    if(errors) {
+        for(error in errors) {
+            console.log(error);
+        }
+    }
+
     console.log(newname+type+description+formattedcoords);
     if (fetchMethod=='ADD'){
         const myHeaders = new Headers();
@@ -334,3 +343,36 @@ document.getElementById('cancelBtn').addEventListener('click', function (e) {
         console.log('You canceled a cancel???');
       }
 });
+
+function validateData(newname, type, description, formattedcoords) {
+    var errors = [];
+    errors.push(...validateNewName(newname));
+    errors.push(...validateType(type));
+    errors.push(...validateDescription(description));
+    errors.push(...validateCoords(formattedcoords));
+    return errors;
+}
+
+function validateNewName(newname) {
+    var nameErrors = [];
+    // Check name errors here
+    return nameErrors;
+}
+
+function validateType(type) {
+    var typeErrors = [];
+    // Type errors go here
+    return typeErrors;
+}
+
+function validateDescription(description) {
+    var descriptionErrors = [];
+    // Check description errors here
+    return descriptionErrors;
+}
+
+function validateCoords(formattedCoords) {
+    var coordsErrors = [];
+    // Check coords here
+    return coordsErrors;
+}
