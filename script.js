@@ -276,7 +276,7 @@ myHeaders.append("Accept", "application/json");
 //   "description": description
 // });
 
-const raw = '{"name":'+newname+', "coordinates":'+formattedcoords+', "category": '+type+', "description": '+description+'}';
+const raw = '{"name":"'+newname+'", "coordinates":'+formattedcoords+', "category": "'+type+'", "description": "'+description+'"}';
 
 const requestOptions = {
   method: "POST",
