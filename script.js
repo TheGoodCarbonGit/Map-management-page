@@ -115,6 +115,7 @@ function openForm(feature) {
     deleteHandler(id);
 }
 
+//Delete needs to also somehow remove the location from the locations[id]?
 function deleteHandler(id){
     document.getElementById('deleteBtn').addEventListener('click', function (e) {
         e.preventDefault();
@@ -126,8 +127,6 @@ function deleteHandler(id){
               redirect: "follow"
             };
             fetch("https://mapdb-victest.australiaeast.cloudapp.azure.com/pins/"+id, requestOptions)
-              .then((response) => response.text())
-              .then((result) => console.log(result))
               .catch((error) => console.error(error));
             showFormReset();
           } else {
@@ -165,6 +164,7 @@ function showFormReset(){
     var form = document.getElementById('formcontents');
     resetSearch();
     form.reset();
+    form.style.display = 'none';
     if (currentMarker != null) {
         map1.removeLayer(currentMarker) //Removes last marker
     }
