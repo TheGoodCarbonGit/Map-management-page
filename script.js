@@ -252,10 +252,10 @@ document.getElementById('submitBtn').addEventListener('click', function (e) {
     if (fetchMethod=='ADD'){
         fetch(serverName, {
             method: "POST", body: JSON.stringify({
-                name: newname,
-                coordinates: coords,
-                category: type,
-                description: description
+                "name": newname,
+                "coordinates": coords,
+                "category": type,
+                "description": description
             })
         }).then(data => console.log(data))    
         .catch(error => console.error('Error:', error));
