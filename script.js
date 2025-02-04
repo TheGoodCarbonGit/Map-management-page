@@ -144,6 +144,7 @@ function showFormEdit() {
 }
 
 function showFormAdd() {
+    resetSearch()
     var form = document.getElementById('formcontents');
     var deleteBtn = document.getElementById('deleteBtn');
     form.style.display = 'block';
