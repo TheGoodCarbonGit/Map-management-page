@@ -112,7 +112,32 @@ function openForm(feature) {
     currentMarker.on('dragend', function (e) {
     console.log(currentMarker.getLatLng().lat + ", " + currentMarker.getLatLng().lng);
     });
+    deleteHandler(id);
 }
+
+function deleteHandler(id){
+    document.getElementById('deleteBtn').addEventListener('click', function (e) {
+        e.preventDefault();
+        if (confirm("Are you sure you want to delete this entry?") == true) {
+            const raw = "";
+            const requestOptions = {
+              method: "DELETE",
+              body: raw,
+              redirect: "follow"
+            };
+            fetch("https://mapdb-victest.australiaeast.cloudapp.azure.com/pins/"+id, requestOptions)
+              .then((response) => response.text())
+              .then((result) => console.log(result))
+              .catch((error) => console.error(error));
+            resetSearch();
+            form.reset();
+            fetchMethod = 'UNSELECTED';
+          } else {
+            console.log('You canceled a delete');
+          }
+    });
+}
+
 
 // Converts plainJSON to a GeoJSON
 function convertToGeoJson(plain) {
@@ -297,15 +322,5 @@ document.getElementById('cancelBtn').addEventListener('click', function (e) {
         fetchMethod = 'UNSELECTED';
       } else {
         console.log('You canceled a cancel???');
-      }
-});
-
-document.getElementById('deleteBtn').addEventListener('click', function (e) {
-    e.preventDefault();
-    if (confirm("Are you sure you want to delete this entry?") == true) {
-// //Fetch call for DELETE
-// form.reset();
-      } else {
-        console.log('You canceled a delete');
       }
 });
