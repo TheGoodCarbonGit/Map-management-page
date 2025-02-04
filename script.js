@@ -253,6 +253,14 @@ document.getElementById('submitBtn').addEventListener('click', function (e) {
     if (fetchMethod=='ADD'){
         const myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
+        // const raw = JSON.stringify({
+        //   "name": newname,
+        //   "coordinates": formattedcoords,
+        //   "category": type,
+        //   "description": description
+        // });
+
+        // const raw = '{"name":"'+newname+'", "coordinates":'+formattedcoords+', "category": "'+type+'", "description": "'+description+'"}';
         const raw = JSON.stringify({
             "name": "hello",
             "coordinates": [
@@ -273,7 +281,7 @@ document.getElementById('submitBtn').addEventListener('click', function (e) {
         .then((result) => console.log(result))
         .catch((error) => {
             console.error("Caught error:", error);
-        }); 
+        });  
     } else if (fetchMethod=='EDIT'){
 //Fetch call for PUT
     }
