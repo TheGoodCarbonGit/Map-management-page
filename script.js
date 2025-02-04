@@ -312,7 +312,7 @@ document.getElementById('submitBtn').addEventListener('click', function (e) {
         .then(response => response.json())
         .then(data => console.log("Success:", data))
         .catch(error => console.error("Error:", error));
-         
+        showFormReset();
     } else if (fetchMethod=='EDIT'){
 //Fetch call for PUT
     }
