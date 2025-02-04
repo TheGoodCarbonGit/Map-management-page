@@ -251,7 +251,11 @@ document.getElementById('submitBtn').addEventListener('click', function (e) {
     console.log(newname+type+description+coords);
     if (fetchMethod=='ADD'){
         fetch(serverName, {
-            method: "POST", body: JSON.stringify({
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'  
+            }, 
+            body: JSON.stringify({
                 "name": newname,
                 "coordinates": coords,
                 "category": type,
