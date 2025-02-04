@@ -276,7 +276,7 @@ document.getElementById('submitBtn').addEventListener('click', function (e) {
         body: raw,
         redirect: "follow"
         };
-        fetch("https://mapdb-victest.australiaeast.cloudapp.azure.com/pins/", requestOptions)
+        fetch("https://mapdb-victest.australiaeast.cloudapp.azure.com/pins", requestOptions)
         .then((response) => response.text())
         .then((result) => console.log(result))
         .catch((error) => {
