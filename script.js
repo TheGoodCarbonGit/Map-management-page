@@ -257,7 +257,8 @@ document.getElementById('submitBtn').addEventListener('click', function (e) {
                 category: type,
                 description: description
             })
-        })
+        }).then(data => console.log(data))    
+        .catch(error => console.error('Error:', error));
     } else if (fetchMethod=='EDIT'){
 //Fetch call for PUT
     }
