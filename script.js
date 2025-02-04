@@ -129,9 +129,7 @@ function deleteHandler(id){
               .then((response) => response.text())
               .then((result) => console.log(result))
               .catch((error) => console.error(error));
-            resetSearch();
-            form.reset();
-            fetchMethod = 'UNSELECTED';
+            showFormReset();
           } else {
             console.log('You canceled a delete');
           }
@@ -162,6 +160,18 @@ function convertToGeoJson(plain) {
 
 let fetchMethod = 'UNSELECTED';
 
+//Reset form to initial stage
+function showFormReset(){
+    var form = document.getElementById('formcontents');
+    resetSearch();
+    form.reset();
+    if (currentMarker != null) {
+        map1.removeLayer(currentMarker) //Removes last marker
+    }
+    fetchMethod = 'UNSELECTED';
+}
+
+//Reset form ready for populating to edit an existing location
 function showFormEdit() {
     var form = document.getElementById('formcontents');
     var deleteBtn = document.getElementById('deleteBtn');
@@ -171,19 +181,19 @@ function showFormEdit() {
     fetchMethod = 'EDIT';
 }
 
+//Reset form ready for adding a new location
 function showFormAdd() {
-        resetSearch();
-        var form = document.getElementById('formcontents');
-        var deleteBtn = document.getElementById('deleteBtn');
-        form.style.display = 'block';
-        deleteBtn.style.display = 'none';
-        map1.invalidateSize();
-        fetchMethod = 'ADD';
-        if (currentMarker != null) {
-            map1.removeLayer(currentMarker) //Removes last marker
-        }
-        form.reset();
-    
+    resetSearch();
+    var form = document.getElementById('formcontents');
+    var deleteBtn = document.getElementById('deleteBtn');
+    form.style.display = 'block';
+    deleteBtn.style.display = 'none';
+    map1.invalidateSize();
+    fetchMethod = 'ADD';
+    if (currentMarker != null) {
+        map1.removeLayer(currentMarker) //Removes last marker
+    }
+    form.reset();
 }
 
 function handleSearch() {
