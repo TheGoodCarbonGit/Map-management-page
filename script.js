@@ -207,6 +207,7 @@ function handleSearch() {
 }
 
 function resetSearch() {
+  $(".selectiondiv").empty();
   $("#search-bar").val("");
   Object.keys(locations).forEach(key => {
     var feature = locations[key];
