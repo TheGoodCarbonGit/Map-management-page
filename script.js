@@ -248,6 +248,7 @@ document.getElementById('submitBtn').addEventListener('click', function (e) {
     var type = document.getElementById('locationtype').value;
     var description = document.getElementById('descriptionfield').value;
     var coords = currentMarker.getLatLng();
+    var formattedcoords = "["+coords.lat+", "+coords.lng+"]";
     console.log(newname+type+description+coords);
     if (fetchMethod=='ADD'){
         fetch(serverName, {
@@ -257,12 +258,13 @@ document.getElementById('submitBtn').addEventListener('click', function (e) {
             }, 
             body: JSON.stringify({
                 name: newname,
-                coordinates: coords,
+                coordinates: formattedcoords,
                 category: type,
                 description: description
             })
         }).then(data => console.log(data))    
         .catch(error => console.error('Error:', error));
+        
     } else if (fetchMethod=='EDIT'){
 //Fetch call for PUT
     }
