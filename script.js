@@ -249,7 +249,7 @@ document.getElementById('submitBtn').addEventListener('click', function (e) {
     var description = document.getElementById('descriptionfield').value;
     var coords = currentMarker.getLatLng();
     var formattedcoords = "["+coords.lat+", "+coords.lng+"]";
-    console.log(newname+type+description+coords);
+    console.log(newname+type+description+formattedcoords);
     if (fetchMethod=='ADD'){
         fetch(serverName, {
             method: "POST",
