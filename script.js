@@ -438,7 +438,21 @@ function validateCoords(formattedCoords) {
     if(formattedCoords.length !== 2){
         coordsErrors.push("CoordError: Given coordinate array was not length of 2");
     }
-
+    for (var i = 0; i < formattedCoords.length; i++){
+        var coord = formattedCoords[i];
+        if(!(/^\d+(\.\d+)?$/.test(coord))) {
+            coordsErrors.push("CoordError: Given coordinate was not numeric");
+            break;
+        }
+    }
+    let longitude = Number(formattedCoords[0]);
+    let latitude = Number(formattedCoords[1]);
+    if (longitude > 180 || longitude < -180) {
+        coordsErrors.push("CoordError: Longitude not within range");
+    }
+    if (latitude > 90 || latitude< -90) {
+        coordsErrors.push("CoordError: Latitude not within range");
+    }
     return coordsErrors;
 }
 
