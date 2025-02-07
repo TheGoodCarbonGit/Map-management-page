@@ -167,6 +167,7 @@ function showFormReset(){
     form.style.display = 'none';
     if (currentMarker != null) {
         map1.removeLayer(currentMarker) //Removes last marker
+        currentMarker = null;
     }
     fetchMethod = 'UNSELECTED';
 }
@@ -192,6 +193,7 @@ function showFormAdd() {
     fetchMethod = 'ADD';
     if (currentMarker != null) {
         map1.removeLayer(currentMarker) //Removes last marker
+        currentMarker = null;
     }
     form.reset();
 }
@@ -315,6 +317,26 @@ document.getElementById('submitBtn').addEventListener('click', function (e) {
         return; // returns if there are any errors so that no attempts to send data to API are made
     }
 
+    if (checkIfEmpty(description)) {
+        switch (description){
+            case "Good Friend":
+                description =  "Our Good Friends contribute to on-the-ground, collaborative, and circular community projects creating long-term carbon sinks, all over New Zealand.";
+                break;
+            case "Project":
+                description = "We collaborate with good people delivering important school and community food-growing and conservation projects across New Zealand to provide a home for our biochar.";
+                break;
+            case "Carbon Farmer":
+                description = "Working around New Zealand, our carbon farmers save green waste from re-emitting carbon to the atmosphere by converting it to biochar.";
+                break;
+            case "Donor":
+                description = "Our donors provide funding and support to implement projects across New Zealand.";
+                break;
+            case "Store":
+                description = "Supporters of The Good Carbon Store provide funding to implement projects across New Zealand.";
+                break;
+        }
+    }
+
     console.log(newname+type+description+formattedcoords);
     if (fetchMethod=='ADD'){
         const myHeaders = new Headers();
@@ -357,6 +379,7 @@ document.getElementById('cancelBtn').addEventListener('click', function (e) {
         console.log('You confirmed a cancel');
         if (currentMarker != null) {
             map1.removeLayer(currentMarker) //Removes last marker
+            currentMarker = null;
         }
         resetSearch();
         form.reset();
