@@ -277,20 +277,42 @@ function resetSearch() {
   });
 }
 
+// SUBMIT BUTTON LISTENER
 document.getElementById('submitBtn').addEventListener('click', function (e) {
     e.preventDefault();
     var newname = document.getElementById('locationname').value;
     var type = document.getElementById('locationtype').value;
     var description = document.getElementById('descriptionfield').value;
-    var coords = currentMarker.getLatLng();
-    var formattedcoords = "["+coords.lng+", "+coords.lat+"]";
+    var formattedcoords = "";
 
-    // Data validation in the front end to ensure it is okay
-    var errors = validateData(newname, type, description, formattedcoords);
-    if(errors) {
+    // Create list of errors
+    var errors = [];
+    if(currentMarker == null) {
+        errors.push("CoordError: No location selected");
+    } else {
+        var coords = currentMarker.getLatLng();
+        formattedcoords = "["+coords.lng+", "+coords.lat+"]";
+    }
+    errors.push(validateData(newname, type, description, formattedcoords));
+
+    //Process list of errors
+    if (errors) {
         for(error in errors) {
+            if(error.startsWith("NameError")){
+                document.getElementById('locationname').style.backgroundColor = "red";
+            }
+            if(error.startsWith("TypeError")){
+                document.getElementById('locationtype').style.backgroundColor = "red";
+            }
+            if(error.startsWith("DescriptionError")){
+                document.getElementById('descriptionfield').style.backgroundColor = "red";
+            }
+            if(error.startsWith("CoordError")){
+                //highlight map border?
+            }
             console.log(error);
         }
+        return; // returns if there are any errors so that no attempts to send data to API are made
     }
 
     console.log(newname+type+description+formattedcoords);
@@ -355,12 +377,25 @@ function validateData(newname, type, description, formattedcoords) {
 
 function validateNewName(newname) {
     var nameErrors = [];
-    // Check name errors here
+    if (!checkIfEmpty(newname)) {
+        nameErrors.push("NameError: Please enter a name")
+    }
+    if(newname.length > 50) {
+        nameErrors.push("NameError: Name cannot be more than 50 characters");
+    }
     return nameErrors;
 }
 
 function validateType(type) {
     var typeErrors = [];
+    if (!checkIfEmpty(type)) {
+        typeErrors.push("TypeError: Please select a category")
+    }
+
+    let validTypes = ["Good Friend", "Project", "Carbon Farmer", "Donor", "Store"];
+    if (!(validTypes.includes(type))) {
+        typeErrors.push("TypeError: Invalid type");
+    }
     // Type errors go here
     return typeErrors;
 }
@@ -368,11 +403,23 @@ function validateType(type) {
 function validateDescription(description) {
     var descriptionErrors = [];
     // Check description errors here
+    if (checkIfEmpty(description)) {
+        return null;
+    }
     return descriptionErrors;
 }
 
 function validateCoords(formattedCoords) {
     var coordsErrors = [];
     // Check coords here
+    if(formattedCoords.length !== 2){
+        coordsErrors.push("CoordError: Given coordinate array was not length of 2");
+    }
+
     return coordsErrors;
+}
+
+function checkIfEmpty(text) {
+    const emptyPattern = /^\s*$/; //regex expression that is either empty or just whitespace
+    return emptyPattern.test(text); //returns true if empty
 }
