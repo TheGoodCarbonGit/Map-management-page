@@ -314,7 +314,7 @@ document.getElementById('submitBtn').addEventListener('click', function (e) {
                 document.getElementById('descriptionfield').style.border = "2px solid red";
             }
             if(formError.startsWith("CoordError")){
-                //highlight map border?
+                document.getElementById('map').style.border = "2px solid red"
             }
             console.log(formError);
         }
