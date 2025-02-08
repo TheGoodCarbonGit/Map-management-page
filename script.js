@@ -296,7 +296,7 @@ document.getElementById('submitBtn').addEventListener('click', function (e) {
         formattedcoords = "["+coords.lng+", "+coords.lat+"]";
     }
 
-    var dataErrors = validateData(newname, type, description, formattedcoords);
+    var dataErrors = validateData(newname, type, description);
     if (dataErrors.length > 0) {
         errors.push(...dataErrors);
     }
@@ -393,12 +393,11 @@ document.getElementById('cancelBtn').addEventListener('click', function (e) {
       }
 });
 
-function validateData(newname, type, description, formattedcoords) {
+function validateData(newname, type, description) {
     const errors = [];
     const nameErrors = validateNewName(newname);
     const typeErrors = validateType(type);
     const descriptionErrors = validateDescription(description);
-    const coordErrors = validateCoords(formattedcoords);
 
     if (nameErrors.length > 0) { //checks length as empty arrays cannot be pushed
         errors.push(...nameErrors);
@@ -409,15 +408,12 @@ function validateData(newname, type, description, formattedcoords) {
     if (descriptionErrors.length > 0) {
         errors.push(...descriptionErrors);
     }
-    if (coordErrors.length > 0) {
-        errors.push(...coordErrors);
-    }
     return errors;
 }
 
 function validateNewName(newname) {
     var nameErrors = [];
-    if (!checkIfEmpty(newname)) {
+    if (checkIfEmpty(newname)) {
         nameErrors.push("NameError: Please enter a name")
     }
     if(newname.length > 50) {
@@ -428,7 +424,7 @@ function validateNewName(newname) {
 
 function validateType(type) {
     var typeErrors = [];
-    if (!checkIfEmpty(type)) {
+    if (checkIfEmpty(type)) {
         typeErrors.push("TypeError: Please select a category")
     }
 
@@ -447,30 +443,6 @@ function validateDescription(description) {
         return [];
     }
     return descriptionErrors;
-}
-
-function validateCoords(formattedCoords) {
-    var coordsErrors = [];
-    // Check coords here
-    if(formattedCoords.length !== 2){
-        coordsErrors.push("CoordError: Given coordinate array was not length of 2");
-    }
-    for (var i = 0; i < formattedCoords.length; i++){
-        var coord = formattedCoords[i];
-        if(!(/^\d+(\.\d+)?$/.test(coord))) {
-            coordsErrors.push("CoordError: Given coordinate was not numeric");
-            break;
-        }
-    }
-    let longitude = Number(formattedCoords[0]);
-    let latitude = Number(formattedCoords[1]);
-    if (longitude > 180 || longitude < -180) {
-        coordsErrors.push("CoordError: Longitude not within range");
-    }
-    if (latitude > 90 || latitude< -90) {
-        coordsErrors.push("CoordError: Latitude not within range");
-    }
-    return coordsErrors;
 }
 
 function checkIfEmpty(text) {
