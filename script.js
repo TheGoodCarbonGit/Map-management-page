@@ -288,31 +288,31 @@ document.getElementById('submitBtn').addEventListener('click', function (e) {
     var formattedcoords = "";
 
     // Create list of errors
-    var errors = [];
+    const formErrors = [];
     if(currentMarker == null) {
-        errors.push("CoordError: No location selected");
+        formErrors.push("CoordError: No location selected");
     } else {
         var coords = currentMarker.getLatLng();
         formattedcoords = "["+coords.lng+", "+coords.lat+"]";
     }
-    errors.push(validateData(newname, type, description, formattedcoords));
+    formErrors.push(validateData(newname, type, description, formattedcoords));
 
     //Process list of errors
-    if (errors) {
-        for(error in errors) {
-            if(error.startsWith("NameError")){
+    if (formErrors) {
+        for(let formError in formErrors) {
+            if(formError.startsWith("NameError")){
                 document.getElementById('locationname').style.backgroundColor = "red";
             }
-            if(error.startsWith("TypeError")){
+            if(formError.startsWith("TypeError")){
                 document.getElementById('locationtype').style.backgroundColor = "red";
             }
-            if(error.startsWith("DescriptionError")){
+            if(formError.startsWith("DescriptionError")){
                 document.getElementById('descriptionfield').style.backgroundColor = "red";
             }
-            if(error.startsWith("CoordError")){
+            if(formError.startsWith("CoordError")){
                 //highlight map border?
             }
-            console.log(error);
+            console.log(formError);
         }
         return; // returns if there are any errors so that no attempts to send data to API are made
     }
@@ -390,7 +390,7 @@ document.getElementById('cancelBtn').addEventListener('click', function (e) {
 });
 
 function validateData(newname, type, description, formattedcoords) {
-    var errors = [];
+    const errors = [];
     errors.push(...validateNewName(newname));
     errors.push(...validateType(type));
     errors.push(...validateDescription(description));
