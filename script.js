@@ -303,20 +303,20 @@ document.getElementById('submitBtn').addEventListener('click', function (e) {
 
     //Process list of errors
     if (errors.length > 0) {
-        for(error in errors) {
-            if(error.startsWith("NameError")){
-                document.getElementById('locationname').style.backgroundColor = "red";
+        for(let formError in errors) {
+            if(formError.startsWith("NameError")){
+                document.getElementById('locationname').style.border = "2px solid red";
             }
-            if(error.startsWith("TypeError")){
-                document.getElementById('locationtype').style.backgroundColor = "red";
+            if(formError.startsWith("TypeError")){
+                document.getElementById('locationtype').style.border = "2px solid red";
             }
-            if(error.startsWith("DescriptionError")){
-                document.getElementById('descriptionfield').style.backgroundColor = "red";
+            if(formError.startsWith("DescriptionError")){
+                document.getElementById('descriptionfield').style.border = "2px solid red";
             }
-            if(error.startsWith("CoordError")){
+            if(formError.startsWith("CoordError")){
                 //highlight map border?
             }
-            console.log(error);
+            console.log(formError);
         }
         return; // returns if there are any errors so that no attempts to send data to API are made
     }
