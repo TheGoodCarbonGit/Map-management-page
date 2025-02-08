@@ -295,10 +295,14 @@ document.getElementById('submitBtn').addEventListener('click', function (e) {
         var coords = currentMarker.getLatLng();
         formattedcoords = "["+coords.lng+", "+coords.lat+"]";
     }
-    errors.push(validateData(newname, type, description, formattedcoords));
+
+    var dataErrors = validateData(newname, type, description, formattedcoords);
+    if (dataErrors.length > 0) {
+        errors.push(dataErrors);
+    }
 
     //Process list of errors
-    if (errors) {
+    if (errors.length > 0) {
         for(error in errors) {
             if(error.startsWith("NameError")){
                 document.getElementById('locationname').style.backgroundColor = "red";
@@ -390,11 +394,24 @@ document.getElementById('cancelBtn').addEventListener('click', function (e) {
 });
 
 function validateData(newname, type, description, formattedcoords) {
-    var errors = [];
-    errors.push(...validateNewName(newname));
-    errors.push(...validateType(type));
-    errors.push(...validateDescription(description));
-    errors.push(...validateCoords(formattedcoords));
+    const errors = [];
+    const nameErrors = validateNewName(newname);
+    const typeErrors = validateType(type);
+    const descriptionErrors = validateDescription(description);
+    const coordErrors = validateCoords(formattedcoords);
+
+    if (nameErrors.length > 0) { //checks length as empty arrays cannot be pushed
+        errors.push(...nameErrors);
+    }
+    if (typeErrors.length > 0) {
+        errors.push(...typeErrors);
+    }
+    if (descriptionErrors.length > 0) {
+        errors.push(...descriptionErrors);
+    }
+    if (coordErrors.length > 0) {
+        errors.push(...coordErrors);
+    }
     return errors;
 }
 
