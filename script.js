@@ -167,6 +167,7 @@ function showFormReset(){
     form.style.display = 'none';
     if (currentMarker != null) {
         map1.removeLayer(currentMarker) //Removes last marker
+        currentMarker = null;
     }
     fetchMethod = 'UNSELECTED';
 }
@@ -192,6 +193,7 @@ function showFormAdd() {
     fetchMethod = 'ADD';
     if (currentMarker != null) {
         map1.removeLayer(currentMarker) //Removes last marker
+        currentMarker = null;
     }
     form.reset();
 }
@@ -277,13 +279,64 @@ function resetSearch() {
   });
 }
 
+// SUBMIT BUTTON LISTENER
 document.getElementById('submitBtn').addEventListener('click', function (e) {
     e.preventDefault();
     var newname = document.getElementById('locationname').value;
     var type = document.getElementById('locationtype').value;
     var description = document.getElementById('descriptionfield').value;
-    var coords = currentMarker.getLatLng();
-    var formattedcoords = "["+coords.lng+", "+coords.lat+"]";
+    var formattedcoords = "";
+
+    // Create list of errors
+    var errors = [];
+    if(currentMarker == null) {
+        errors.push("CoordError: No location selected");
+    } else {
+        var coords = currentMarker.getLatLng();
+        formattedcoords = "["+coords.lng+", "+coords.lat+"]";
+    }
+    errors.push(validateData(newname, type, description, formattedcoords));
+
+    //Process list of errors
+    if (errors) {
+        for(error in errors) {
+            if(error.startsWith("NameError")){
+                document.getElementById('locationname').style.backgroundColor = "red";
+            }
+            if(error.startsWith("TypeError")){
+                document.getElementById('locationtype').style.backgroundColor = "red";
+            }
+            if(error.startsWith("DescriptionError")){
+                document.getElementById('descriptionfield').style.backgroundColor = "red";
+            }
+            if(error.startsWith("CoordError")){
+                //highlight map border?
+            }
+            console.log(error);
+        }
+        return; // returns if there are any errors so that no attempts to send data to API are made
+    }
+
+    if (checkIfEmpty(description)) {
+        switch (description){
+            case "Good Friend":
+                description =  "Our Good Friends contribute to on-the-ground, collaborative, and circular community projects creating long-term carbon sinks, all over New Zealand.";
+                break;
+            case "Project":
+                description = "We collaborate with good people delivering important school and community food-growing and conservation projects across New Zealand to provide a home for our biochar.";
+                break;
+            case "Carbon Farmer":
+                description = "Working around New Zealand, our carbon farmers save green waste from re-emitting carbon to the atmosphere by converting it to biochar.";
+                break;
+            case "Donor":
+                description = "Our donors provide funding and support to implement projects across New Zealand.";
+                break;
+            case "Store":
+                description = "Supporters of The Good Carbon Store provide funding to implement projects across New Zealand.";
+                break;
+        }
+    }
+
     console.log(newname+type+description+formattedcoords);
     if (fetchMethod=='ADD'){
         const myHeaders = new Headers();
@@ -326,6 +379,7 @@ document.getElementById('cancelBtn').addEventListener('click', function (e) {
         console.log('You confirmed a cancel');
         if (currentMarker != null) {
             map1.removeLayer(currentMarker) //Removes last marker
+            currentMarker = null;
         }
         resetSearch();
         form.reset();
@@ -334,3 +388,75 @@ document.getElementById('cancelBtn').addEventListener('click', function (e) {
         console.log('You canceled a cancel???');
       }
 });
+
+function validateData(newname, type, description, formattedcoords) {
+    var errors = [];
+    errors.push(...validateNewName(newname));
+    errors.push(...validateType(type));
+    errors.push(...validateDescription(description));
+    errors.push(...validateCoords(formattedcoords));
+    return errors;
+}
+
+function validateNewName(newname) {
+    var nameErrors = [];
+    if (!checkIfEmpty(newname)) {
+        nameErrors.push("NameError: Please enter a name")
+    }
+    if(newname.length > 50) {
+        nameErrors.push("NameError: Name cannot be more than 50 characters");
+    }
+    return nameErrors;
+}
+
+function validateType(type) {
+    var typeErrors = [];
+    if (!checkIfEmpty(type)) {
+        typeErrors.push("TypeError: Please select a category")
+    }
+
+    let validTypes = ["Good Friend", "Project", "Carbon Farmer", "Donor", "Store"];
+    if (!(validTypes.includes(type))) {
+        typeErrors.push("TypeError: Invalid type");
+    }
+    // Type errors go here
+    return typeErrors;
+}
+
+function validateDescription(description) {
+    var descriptionErrors = [];
+    // Check description errors here
+    if (checkIfEmpty(description)) {
+        return null;
+    }
+    return descriptionErrors;
+}
+
+function validateCoords(formattedCoords) {
+    var coordsErrors = [];
+    // Check coords here
+    if(formattedCoords.length !== 2){
+        coordsErrors.push("CoordError: Given coordinate array was not length of 2");
+    }
+    for (var i = 0; i < formattedCoords.length; i++){
+        var coord = formattedCoords[i];
+        if(!(/^\d+(\.\d+)?$/.test(coord))) {
+            coordsErrors.push("CoordError: Given coordinate was not numeric");
+            break;
+        }
+    }
+    let longitude = Number(formattedCoords[0]);
+    let latitude = Number(formattedCoords[1]);
+    if (longitude > 180 || longitude < -180) {
+        coordsErrors.push("CoordError: Longitude not within range");
+    }
+    if (latitude > 90 || latitude< -90) {
+        coordsErrors.push("CoordError: Latitude not within range");
+    }
+    return coordsErrors;
+}
+
+function checkIfEmpty(text) {
+    const emptyPattern = /^\s*$/; //regex expression that is either empty or just whitespace
+    return emptyPattern.test(text); //returns true if empty
+}
