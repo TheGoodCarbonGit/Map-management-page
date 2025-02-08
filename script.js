@@ -164,6 +164,7 @@ function showFormReset(){
     var form = document.getElementById('formcontents');
     resetSearch();
     form.reset();
+    removeErrorBorders()
     form.style.display = 'none';
     if (currentMarker != null) {
         map1.removeLayer(currentMarker) //Removes last marker
@@ -176,6 +177,7 @@ function showFormReset(){
 function showFormEdit() {
     var form = document.getElementById('formcontents');
     var deleteBtn = document.getElementById('deleteBtn');
+    removeErrorBorders()
     form.style.display = 'block';
     deleteBtn.style.display = 'block';
     map1.invalidateSize();
@@ -187,6 +189,7 @@ function showFormAdd() {
     resetSearch();
     var form = document.getElementById('formcontents');
     var deleteBtn = document.getElementById('deleteBtn');
+    removeErrorBorders()
     form.style.display = 'block';
     deleteBtn.style.display = 'none';
     map1.invalidateSize();
@@ -386,6 +389,7 @@ document.getElementById('cancelBtn').addEventListener('click', function (e) {
             currentMarker = null;
         }
         resetSearch();
+        removeErrorBorders()
         form.reset();
         fetchMethod = 'UNSELECTED';
       } else {
@@ -448,4 +452,11 @@ function validateDescription(description) {
 function checkIfEmpty(text) {
     const emptyPattern = /^\s*$/; //regex expression that is either empty or just whitespace
     return emptyPattern.test(text); //returns true if empty
+}
+
+function removeErrorBorders() {
+    document.getElementById('locationname').style.border = "none";
+    document.getElementById('locationtype').style.border = "none";
+    document.getElementById('descriptionfield').style.border = "none";
+    document.getElementById('map').style.border = "none";
 }
