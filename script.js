@@ -298,7 +298,7 @@ document.getElementById('submitBtn').addEventListener('click', function (e) {
 
     var dataErrors = validateData(newname, type, description, formattedcoords);
     if (dataErrors.length > 0) {
-        errors.push(dataErrors);
+        errors.push(...dataErrors);
     }
 
     //Process list of errors
