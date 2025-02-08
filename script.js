@@ -444,7 +444,7 @@ function validateDescription(description) {
     var descriptionErrors = [];
     // Check description errors here
     if (checkIfEmpty(description)) {
-        return null;
+        return [];
     }
     return descriptionErrors;
 }
