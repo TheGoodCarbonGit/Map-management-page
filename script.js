@@ -322,7 +322,7 @@ document.getElementById('submitBtn').addEventListener('click', function (e) {
     }
 
     if (checkIfEmpty(description)) {
-        switch (description){
+        switch (type){
             case "Good Friend":
                 description =  "Our Good Friends contribute to on-the-ground, collaborative, and circular community projects creating long-term carbon sinks, all over New Zealand.";
                 break;
