@@ -303,7 +303,7 @@ document.getElementById('submitBtn').addEventListener('click', function (e) {
 
     //Process list of errors
     if (errors.length > 0) {
-        for(let formError in errors) {
+        for(let formError of errors) {
             if(formError.startsWith("NameError")){
                 document.getElementById('locationname').style.border = "2px solid red";
             }
