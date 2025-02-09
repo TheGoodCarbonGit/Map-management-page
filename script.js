@@ -9,6 +9,7 @@ var map1 = L.map('map', {
 }).setView([-41.29012931030752, 174.76792012621496], 5);
 
 var currentMarker;
+var currentID = null;
 
 //Adding marker on click 
 function addMarkeronClick(e) {
@@ -94,7 +95,7 @@ fetch(serverName, {
     .catch(error => console.error('Error loading GeoJSON:', error));
 
 function openForm(feature) {
-    var id = feature.properties.id;
+    currentId = feature.properties.id;
     var title = feature.properties.name;
     var category = feature.properties.category;
     var description = feature.properties.description;
@@ -112,7 +113,7 @@ function openForm(feature) {
     currentMarker.on('dragend', function (e) {
     console.log(currentMarker.getLatLng().lat + ", " + currentMarker.getLatLng().lng);
     });
-    deleteHandler(id);
+    deleteHandler(currentId);
 }
 
 //Delete needs to also somehow remove the location from the locations[id]?
@@ -129,6 +130,7 @@ function deleteHandler(id){
             fetch("https://mapdb-victest.australiaeast.cloudapp.azure.com/pins/"+id, requestOptions)
               .catch((error) => console.error(error));
             showFormReset();
+            currentId = null;
           } else {
             console.log('You canceled a delete');
           }
@@ -164,7 +166,8 @@ function showFormReset(){
     var form = document.getElementById('formcontents');
     resetSearch();
     form.reset();
-    removeErrorBorders()
+    removeErrorBorders();
+    currentId = null;
     form.style.display = 'none';
     if (currentMarker != null) {
         map1.removeLayer(currentMarker) //Removes last marker
@@ -190,6 +193,7 @@ function showFormAdd() {
     var form = document.getElementById('formcontents');
     var deleteBtn = document.getElementById('deleteBtn');
     removeErrorBorders()
+    currentId = null;
     form.style.display = 'block';
     deleteBtn.style.display = 'none';
     map1.invalidateSize();
@@ -296,7 +300,7 @@ document.getElementById('submitBtn').addEventListener('click', function (e) {
         errors.push("CoordError: No location selected");
     } else {
         var coords = currentMarker.getLatLng();
-        formattedcoords = "["+coords.lng+", "+coords.lat+"]";
+        formattedcoords = "["+coords.lng+", "+coords.lat+"]"; //No longer used?
     }
 
     var dataErrors = validateData(newname, type, description);
@@ -345,13 +349,13 @@ document.getElementById('submitBtn').addEventListener('click', function (e) {
     }
 
     console.log(newname+type+description+formattedcoords);
+    const myHeaders = new Headers();
+    myHeaders.append("Accept", "application/json");
+    myHeaders.append("Content-Type", "application/json");
     if (fetchMethod=='ADD'){
-        const myHeaders = new Headers();
-        myHeaders.append("Accept", "application/json");
-        myHeaders.append("Content-Type", "application/json");
         // const raw = JSON.stringify({
         //   "name": newname,
-        //   "coordinates": formattedcoords,
+        //   "coordinates": formattedcoords, // ?can delete formatted coords above
         //   "category": type,
         //   "description": description
         // });
@@ -374,7 +378,28 @@ document.getElementById('submitBtn').addEventListener('click', function (e) {
         .catch(error => console.error("Error:", error));
         showFormReset();
     } else if (fetchMethod=='EDIT'){
-//Fetch call for PUT
+        if (currentId == null) {
+            console.log("Id not found");
+            return;
+        }
+
+        if (confirm("This will update the entry, and the old data will be lost. Continue?") == true) {
+            const raw = JSON.stringify({
+                name: newname,
+                coordinates: [coords.lng, coords.lat],
+                category: type,
+                description: description
+            });
+            fetch((serverName + "/" + currentId), {
+                method: "PUT",
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            }).catch(error => console.error("Error:", error));
+        }
+        // Add check for confirmation and remove red borders if success
+        // Update sidebar if successful
+
     }
 });
 
