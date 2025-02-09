@@ -117,10 +117,10 @@ function deleteHandler(id){
                 .then(response => {
                     delete locations[id];
                     resetSearch();
+                    currentId = null;
                 })
               .catch((error) => console.error(error));
             showFormReset();
-            currentId = null;
           } else {
             console.log('You canceled a delete');
           }
@@ -301,7 +301,6 @@ document.getElementById('submitBtn').addEventListener('click', function (e) {
     var newname = document.getElementById('locationname').value;
     var type = document.getElementById('locationtype').value;
     var description = document.getElementById('descriptionfield').value;
-    var formattedcoords = "";
 
     // Create list of errors
     var errors = [];
@@ -309,7 +308,6 @@ document.getElementById('submitBtn').addEventListener('click', function (e) {
         errors.push("CoordError: No location selected");
     } else {
         var coords = currentMarker.getLatLng();
-        formattedcoords = "["+coords.lng+", "+coords.lat+"]"; //No longer used?
     }
 
     var dataErrors = validateData(newname, type, description);
@@ -321,16 +319,16 @@ document.getElementById('submitBtn').addEventListener('click', function (e) {
     if (errors.length > 0) {
         for(let formError of errors) {
             if(formError.startsWith("NameError")){
-                document.getElementById('locationname').style.border = "2px solid red";
+                document.getElementById('locationname').style.border = "5px solid red";
             }
             if(formError.startsWith("TypeError")){
-                document.getElementById('locationtype').style.border = "2px solid red";
+                document.getElementById('locationtype').style.border = "5px solid red";
             }
             if(formError.startsWith("DescriptionError")){
-                document.getElementById('descriptionfield').style.border = "2px solid red";
+                document.getElementById('descriptionfield').style.border = "5px solid red";
             }
             if(formError.startsWith("CoordError")){
-                document.getElementById('map').style.border = "2px solid red"
+                document.getElementById('map').style.border = "5px solid red"
             }
             console.log(formError);
         }
