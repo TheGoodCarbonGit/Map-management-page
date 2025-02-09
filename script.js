@@ -120,7 +120,7 @@ function deleteHandler(id){
 function convertSingleToGeoJson(plain) {
     const geoJSON = {
         type: "FeatureCollection",
-        features: {
+        features: [{
             type: "Feature",
             geometry: {
                 type: "Point",
@@ -132,8 +132,9 @@ function convertSingleToGeoJson(plain) {
                 description: plain.description,
                 category: plain.category
             }
-        }
+        }]
     };
+    console.log(geoJSON);
     return geoJSON;
 }
 
