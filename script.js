@@ -9,7 +9,7 @@ var map1 = L.map('map', {
 }).setView([-41.29012931030752, 174.76792012621496], 5);
 
 var currentMarker;
-var currentID = null;
+var currentId = null;
 
 //Adding marker on click 
 function addMarkeronClick(e) {
@@ -109,6 +109,10 @@ function deleteHandler(id){
               redirect: "follow"
             };
             fetch("https://mapdb-victest.australiaeast.cloudapp.azure.com/pins/"+id, requestOptions)
+                .then(response => {
+                    document.getElementById(currentId).remove();
+                    delete locations[currentId];
+                })
               .catch((error) => console.error(error));
             showFormReset();
             currentId = null;
