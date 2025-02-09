@@ -65,8 +65,9 @@ lyr_streets.addTo(map1);
 // fetch('https://tong-jt.github.io/map-test/plainlocations.json')
 fetch(serverName, {method: "GET",})
     .then(response => response.json())
-    .then(plainjson => {
-        addToSelectionDiv(plainjson);
+    .then(plainJson => {
+        var geoJson = convertMultipleToGeoJson(plainJson)
+        addToSelectionDiv(geoJson);
         const addbtn = document.getElementById('addbtn'); //Why is this in the forEach loop???
         addbtn.addEventListener('click', function () {
             showFormAdd();
@@ -116,10 +117,28 @@ function deleteHandler(id){
           }
     });
 }
-
+function convertSingleToGeoJson(plain) {
+    const geoJSON = {
+        type: "FeatureCollection",
+        features: {
+            type: "Feature",
+            geometry: {
+                type: "Point",
+                coordinates: plain.coordinates
+            },
+            properties: {
+                id: plain.id,
+                name: plain.name,
+                description: plain.description,
+                category: plain.category
+            }
+        }
+    };
+    return geoJSON;
+}
 
 // Converts plainJSON to a GeoJSON
-function convertToGeoJson(plain) {
+function convertMultipleToGeoJson(plain) {
     const geoJSON = {
         type: "FeatureCollection",
         features: plain.map(site => ({
@@ -357,7 +376,8 @@ document.getElementById('submitBtn').addEventListener('click', function (e) {
         .then(response => response.json())
         .then(data => {
             console.log("Success:", data);
-            addToSelectionDiv(data);
+            const geoJson = convertSingleToGeoJson(data);
+            addToSelectionDiv(geoJson);
             showFormReset();
         })
         .catch(error => console.error("Error:", error));
@@ -475,9 +495,8 @@ function removeErrorBorders() {
 }
 
 function addToSelectionDiv(data) {
-    const geoJsonData = convertToGeoJson(data);
-    geoJsonData.features.forEach(function (feature) {
-        var id = features.feature.properties.id;
+    data.features.forEach(function (feature) {
+        var id = feature.properties.id;
         var title = feature.properties.name;
         var category = feature.properties.category;
         var coordinates = feature.geometry.coordinates;
