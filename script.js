@@ -85,7 +85,7 @@ fetch(serverName, {
                 showFormEdit();
                 openForm(locations[id]);
             });
-            const addbtn = document.getElementById('addbtn');
+            const addbtn = document.getElementById('addbtn'); //Why is this in the forEach loop???
             addbtn.addEventListener('click', function () {
                 showFormAdd();
             });
@@ -352,6 +352,7 @@ document.getElementById('submitBtn').addEventListener('click', function (e) {
     const myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
     myHeaders.append("Content-Type", "application/json");
+    // ADD METHOD
     if (fetchMethod=='ADD'){
         // const raw = JSON.stringify({
         //   "name": newname,
@@ -374,9 +375,14 @@ document.getElementById('submitBtn').addEventListener('click', function (e) {
             body: raw
         })
         .then(response => response.json())
-        .then(data => console.log("Success:", data))
+        .then(data => {
+            console.log("Success:", data);
+            addToSelectionDiv(data);
+            showFormReset();
+        })
         .catch(error => console.error("Error:", error));
-        showFormReset();
+
+    // PUT METHOD
     } else if (fetchMethod=='EDIT'){
         if (currentId == null) {
             console.log("Id not found");
@@ -396,7 +402,8 @@ document.getElementById('submitBtn').addEventListener('click', function (e) {
                 body: raw,
                 redirect: 'follow'
             }).catch(error => console.error("Error:", error));
-            showFormReset();
+
+            showFormReset(); // make if no error
         }
         // Add check for confirmation and remove red borders if success
         // Update sidebar if successful
@@ -485,4 +492,24 @@ function removeErrorBorders() {
     document.getElementById('locationtype').style.border = "none";
     document.getElementById('descriptionfield').style.border = "none";
     document.getElementById('map').style.border = "none";
+}
+
+function addToSelectionDiv(data) {
+    const geoJsonData = convertToGeoJson(data);
+    geoJsonData.features.forEach(function (feature) {
+        var id = features.feature.properties.id;
+        var title = feature.properties.name;
+        var category = feature.properties.category;
+        var coordinates = feature.geometry.coordinates;
+        locations[id] = {
+            properties: feature.properties,
+            coordinates: [coordinates[1], coordinates[0]]
+        };
+        $(".selectiondiv").append('<div id="' + id + '" class="locationdiv"><div class="locationtitle">' + title + '</div>' + category + '</div>');
+        const locationSection = document.getElementById(id);
+        locationSection.addEventListener('click', function () {
+            showFormEdit();
+            openForm(locations[id]);
+        });
+    });
 }
