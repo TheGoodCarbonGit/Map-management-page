@@ -110,8 +110,8 @@ function deleteHandler(id){
             };
             fetch("https://mapdb-victest.australiaeast.cloudapp.azure.com/pins/"+id, requestOptions)
                 .then(response => {
-                    document.getElementById("'"+id+"'").remove();
                     delete locations[id];
+                    resetSearch();
                 })
               .catch((error) => console.error(error));
             showFormReset();
