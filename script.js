@@ -474,7 +474,7 @@ function validateNewName(newname) {
     if (checkIfEmpty(newname)) {
         nameErrors.push("NameError: Please enter a name")
     }
-    if(newname.length > 50) {
+    if(newname.length > 85) {
         nameErrors.push("NameError: Name cannot be more than 50 characters");
     }
     return nameErrors;
