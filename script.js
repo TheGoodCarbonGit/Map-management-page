@@ -396,6 +396,7 @@ document.getElementById('submitBtn').addEventListener('click', function (e) {
                 body: raw,
                 redirect: 'follow'
             }).catch(error => console.error("Error:", error));
+            showFormReset();
         }
         // Add check for confirmation and remove red borders if success
         // Update sidebar if successful
