@@ -63,34 +63,14 @@ lyr_streets.addTo(map1);
 
 // Fetch the JSON from local file, parse through
 // fetch('https://tong-jt.github.io/map-test/plainlocations.json')
-fetch(serverName, {
-  method: "GET",
-}).then(response => response.json())
+fetch(serverName, {method: "GET",})
+    .then(response => response.json())
     .then(plainjson => {
-        const data = convertToGeoJson(plainjson)
-        // Parsing through each individual entry and extract info
-        data.features.forEach(function (feature) {
-            var id = feature.properties.id;
-            var title = feature.properties.name;
-            var category = feature.properties.category;
-            var coordinates = feature.geometry.coordinates;
-            locations[id] = {
-                properties: feature.properties,
-                coordinates: [coordinates[1], coordinates[0]]
-            };
-            // Append the dynamic content (title and category) to the selectiondiv
-            $(".selectiondiv").append('<div id="' + id + '" class="locationdiv"><div class="locationtitle">' + title + '</div>' + category + '</div>');
-            const locationSection = document.getElementById(id);
-            locationSection.addEventListener('click', function () {
-                showFormEdit();
-                openForm(locations[id]);
-            });
-            const addbtn = document.getElementById('addbtn'); //Why is this in the forEach loop???
-            addbtn.addEventListener('click', function () {
-                showFormAdd();
-            });
+        addToSelectionDiv(plainjson);
+        const addbtn = document.getElementById('addbtn'); //Why is this in the forEach loop???
+        addbtn.addEventListener('click', function () {
+            showFormAdd();
         });
-
     })
     .catch(error => console.error('Error loading GeoJSON:', error));
 
