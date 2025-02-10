@@ -100,11 +100,9 @@ function openForm(feature) {
     currentMarker.on('dragend', function (e) {
     console.log(currentMarker.getLatLng().lat + ", " + currentMarker.getLatLng().lng);
     });
-    deleteHandler(currentId);
 }
 
 //Delete needs to also somehow remove the location from the locations[id]?
-function deleteHandler(id){
     document.getElementById('deleteBtn').addEventListener('click', function (e) {
         e.preventDefault();
         if (confirm("Are you sure you want to delete this entry?") == true) {
@@ -115,9 +113,9 @@ function deleteHandler(id){
               redirect: "follow"
             };
             console.log(currentId);
-            fetch("https://mapdb-victest.australiaeast.cloudapp.azure.com/pins/"+id, requestOptions)
+            fetch("https://mapdb-victest.australiaeast.cloudapp.azure.com/pins/"+currentId, requestOptions)
                 .then(response => {
-                    delete locations[id];
+                    delete locations[currentId];
                     resetSearch();
                     currentId = null;
                 })
@@ -127,7 +125,7 @@ function deleteHandler(id){
             console.log('You canceled a delete');
           }
     });
-}
+
 function convertSingleToGeoJson(plain) {
     const geoJSON = {
         type: "FeatureCollection",
