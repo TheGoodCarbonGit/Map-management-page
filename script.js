@@ -355,19 +355,12 @@ document.getElementById('submitBtn').addEventListener('click', function (e) {
         }
     }
 
-    console.log(newname+type+description+formattedcoords);
+    console.log(newname+type+description);
     const myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
     myHeaders.append("Content-Type", "application/json");
     // ADD METHOD
     if (fetchMethod=='ADD'){
-        // const raw = JSON.stringify({
-        //   "name": newname,
-        //   "coordinates": formattedcoords, // ?can delete formatted coords above
-        //   "category": type,
-        //   "description": description
-        // });
-
         const raw = JSON.stringify({
             name: newname,
             coordinates: [coords.lng, coords.lat],  
