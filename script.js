@@ -81,7 +81,6 @@ fetch(serverName, {method: "GET",})
     .catch(error => console.error('Error loading GeoJSON:', error));
 
 function openForm(feature) {
-    alert("Alert");
     currentId = feature.properties.id;
     var title = feature.properties.name;
     var category = feature.properties.category;
@@ -115,6 +114,7 @@ function openForm(feature) {
             console.log(currentId);
             fetch("https://mapdb-victest.australiaeast.cloudapp.azure.com/pins/"+currentId, requestOptions)
                 .then(response => {
+                    console.log(response);
                     delete locations[currentId];
                     resetSearch();
                     currentId = null;
