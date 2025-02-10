@@ -81,6 +81,7 @@ fetch(serverName, {method: "GET",})
     .catch(error => console.error('Error loading GeoJSON:', error));
 
 function openForm(feature) {
+    alert("Alert");
     currentId = feature.properties.id;
     var title = feature.properties.name;
     var category = feature.properties.category;
