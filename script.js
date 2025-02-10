@@ -116,7 +116,9 @@ function openForm(feature) {
                 .then(response => {
                     console.log(response);
                     delete locations[currentId];
+                    console.log("About to reset Search");
                     resetSearch();
+                    console.log("Done reset Search");
                     currentId = null;
                 })
               .catch((error) => console.error(error));
@@ -264,6 +266,7 @@ function handleSearch() {
 }
 
 function resetSearch() {
+    console.log("Reset Search Starting");
   $(".selectiondiv").empty();
   $("#search-bar").val("");
   Object.keys(locations).forEach(key => {
@@ -293,6 +296,7 @@ function resetSearch() {
 
     $(".selectiondiv").append(resultItem);
   });
+  console.log("Reset Search Ending");
 }
 
 // SUBMIT BUTTON LISTENER
