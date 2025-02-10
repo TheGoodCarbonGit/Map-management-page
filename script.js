@@ -117,12 +117,11 @@ function openForm(feature) {
                     console.log(response);
                     delete locations[currentId];
                     console.log("About to reset Search");
-                    resetSearch();
+                    showFormReset();
                     console.log("Done reset Search");
                     currentId = null;
                 })
               .catch((error) => console.error(error));
-            showFormReset();
           } else {
             console.log('You canceled a delete');
           }
