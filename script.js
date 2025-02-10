@@ -113,6 +113,7 @@ function deleteHandler(id){
               body: raw,
               redirect: "follow"
             };
+            console.log(currentId);
             fetch("https://mapdb-victest.australiaeast.cloudapp.azure.com/pins/"+id, requestOptions)
                 .then(response => {
                     delete locations[id];
@@ -390,7 +391,7 @@ document.getElementById('submitBtn').addEventListener('click', function (e) {
             return;
         }
 
-        if (confirm("This will update the entry, and the old data will be lost. Continue?") == true) {
+        if (confirm("This will update the entry, and the old data will be lost. Continue?")==true) {
             const raw = JSON.stringify({
                 name: newname,
                 coordinates: [coords.lng, coords.lat],
