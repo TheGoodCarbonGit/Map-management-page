@@ -179,6 +179,8 @@ function showFormReset(){
     removeErrorBorders();
     currentId = null;
     form.style.display = 'none';
+    document.getElementById('addingHeader').style.display = 'none';
+    document.getElementById('editingHeader').style.display = 'none';
     if (currentMarker != null) {
         map1.removeLayer(currentMarker) //Removes last marker
         currentMarker = null;
@@ -192,6 +194,8 @@ function showFormEdit() {
     var deleteBtn = document.getElementById('deleteBtn');
     removeErrorBorders()
     form.style.display = 'block';
+    document.getElementById('addingHeader').style.display = 'none';
+    document.getElementById('editingHeader').style.display = 'block';
     deleteBtn.style.display = 'block';
     map1.invalidateSize();
     fetchMethod = 'EDIT';
@@ -205,6 +209,8 @@ function showFormAdd() {
     removeErrorBorders()
     currentId = null;
     form.style.display = 'block';
+    document.getElementById('addingHeader').style.display = 'block';
+    document.getElementById('editingHeader').style.display = 'none';
     deleteBtn.style.display = 'none';
     map1.invalidateSize();
     fetchMethod = 'ADD';
