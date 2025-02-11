@@ -179,6 +179,8 @@ function showFormReset(){
     removeErrorBorders();
     currentId = null;
     form.style.display = 'none';
+    document.getElementById('addingHeader').style.display = 'none';
+    document.getElementById('editingHeader').style.display = 'none';
     if (currentMarker != null) {
         map1.removeLayer(currentMarker) //Removes last marker
         currentMarker = null;
@@ -191,7 +193,9 @@ function showFormEdit() {
     var form = document.getElementById('formcontents');
     var deleteBtn = document.getElementById('deleteBtn');
     removeErrorBorders()
-    form.style.display = 'block';
+    form.style.display = 'contents';
+    document.getElementById('addingHeader').style.display = 'none';
+    document.getElementById('editingHeader').style.display = 'block';
     deleteBtn.style.display = 'block';
     map1.invalidateSize();
     fetchMethod = 'EDIT';
@@ -204,7 +208,9 @@ function showFormAdd() {
     var deleteBtn = document.getElementById('deleteBtn');
     removeErrorBorders()
     currentId = null;
-    form.style.display = 'block';
+    form.style.display = 'contents';
+    document.getElementById('addingHeader').style.display = 'block';
+    document.getElementById('editingHeader').style.display = 'none';
     deleteBtn.style.display = 'none';
     map1.invalidateSize();
     fetchMethod = 'ADD';
@@ -430,16 +436,8 @@ document.getElementById('cancelBtn').addEventListener('click', function (e) {
     e.preventDefault();
     var form = document.getElementById('formcontents');
     if (confirm("Are you sure you want to cancel?") == true) {
-        form.style.display = 'none';
+        showFormReset()
         console.log('You confirmed a cancel');
-        if (currentMarker != null) {
-            map1.removeLayer(currentMarker) //Removes last marker
-            currentMarker = null;
-        }
-        resetSearch();
-        removeErrorBorders()
-        form.reset();
-        fetchMethod = 'UNSELECTED';
       } else {
         console.log('You canceled a cancel???');
       }
