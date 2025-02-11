@@ -405,22 +405,20 @@ document.getElementById('submitBtn').addEventListener('click', function (e) {
                 headers: myHeaders,
                 body: raw,
                 redirect: 'follow'
-            }).catch(error => console.error("Error:", error));
-            //below code needs server to be updated so that POST returns data
-                // .then(response => response.json())
-                // .then(data => {
-                //     console.log("Success:", data);
-                //     const geoJson = convertSingleToGeoJson(data);
-                //     geoJson.features.forEach(function (feature) {
-                //         var id = feature.properties.id;
-                //         locations[id] = {
-                //             properties: feature.properties,
-                //             coordinates: [coordinates[1], coordinates[0]]
-                //         };
-                //     })
-                //     resetSearch();
-                // })
-            showFormReset(); // make if no error
+            }).then(response => response.json())
+                .then(data => {
+                    console.log("Success:", data);
+                    const geoJson = convertSingleToGeoJson(data);
+                    geoJson.features.forEach(function (feature) {
+                        var id = feature.properties.id;
+                        locations[id] = {
+                            properties: feature.properties,
+                            coordinates: [coordinates[1], coordinates[0]]
+                        };
+                    });
+                    showFormReset();
+                })
+                .catch(error => console.error("Error:", error));
         }
         // Add check for confirmation and remove red borders if success
         // Update sidebar if successful
