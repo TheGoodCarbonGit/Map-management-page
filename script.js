@@ -413,16 +413,19 @@ document.getElementById('submitBtn').addEventListener('click', function (e) {
                 redirect: 'follow'
             }).then(response => response.json())
                 .then(data => {
-                    console.log("Success:", data);
-                    const geoJson = convertSingleToGeoJson(data);
-                    geoJson.features.forEach(function (feature) {
-                        var id = feature.properties.id;
-                        locations[id] = {
-                            properties: feature.properties,
-                            coordinates: [coordinates[1], coordinates[0]]
+                    if(data.ok){
+                        var newProperties = {
+                            id: currentId,
+                            name: newname,
+                            category: type,
+                            description: description
                         };
-                    });
-                    showFormReset();
+                        locations[currentId] = {
+                            properties: newProperties,
+                            coordinates: [coords.lng, coords.lat]
+                        };
+                        showFormReset();
+                    }
                 })
                 .catch(error => console.error("Error:", error));
         }
