@@ -193,7 +193,7 @@ function showFormEdit() {
     var form = document.getElementById('formcontents');
     var deleteBtn = document.getElementById('deleteBtn');
     removeErrorBorders()
-    form.style.display = 'block';
+    form.style.display = 'contents';
     document.getElementById('addingHeader').style.display = 'none';
     document.getElementById('editingHeader').style.display = 'block';
     deleteBtn.style.display = 'block';
@@ -208,7 +208,7 @@ function showFormAdd() {
     var deleteBtn = document.getElementById('deleteBtn');
     removeErrorBorders()
     currentId = null;
-    form.style.display = 'block';
+    form.style.display = 'contents';
     document.getElementById('addingHeader').style.display = 'block';
     document.getElementById('editingHeader').style.display = 'none';
     deleteBtn.style.display = 'none';
