@@ -411,8 +411,7 @@ document.getElementById('submitBtn').addEventListener('click', function (e) {
                 headers: myHeaders,
                 body: raw,
                 redirect: 'follow'
-            }).then(response => response.json())
-                .then(data => {
+            }).then(data => {
                     if(data.ok){
                         var newProperties = {
                             id: currentId,
