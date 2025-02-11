@@ -421,7 +421,7 @@ document.getElementById('submitBtn').addEventListener('click', function (e) {
                         };
                         locations[currentId] = {
                             properties: newProperties,
-                            coordinates: [coords.lng, coords.lat]
+                            coordinates: [coords.lat, coords.lng]
                         };
                         showFormReset();
                     }
