@@ -1,4 +1,4 @@
-var serverName = 'https://mapdb-victest.australiaeast.cloudapp.azure.com/pins';
+var serverName = 'https://goodcarbonfarmmap.australiaeast.cloudapp.azure.com/pins';
 
 var southWest = L.latLng(-41.29012931030752 - 200, 174.76792012621496 - 200);
 var northEast = L.latLng(-41.29012931030752 + 200, 174.76792012621496 + 200);
@@ -112,7 +112,7 @@ function openForm(feature) {
               redirect: "follow"
             };
             console.log(currentId);
-            fetch("https://mapdb-victest.australiaeast.cloudapp.azure.com/pins/"+currentId, requestOptions)
+            fetch(serverName + "/"+currentId, requestOptions)
                 .then(response => {
                     console.log(response);
                     delete locations[currentId];
