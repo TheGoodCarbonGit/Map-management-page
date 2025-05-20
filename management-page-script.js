@@ -482,7 +482,7 @@ function validateType(type) {
         typeErrors.push("TypeError: Please select a category")
     }
 
-    let validTypes = ["Good Friend", "Project", "Carbon Farmer", "Donor", "Store"];
+    let validTypes = ["Good Friend", "Project", "Carbon Farmer", "Donor", "Community"];
     if (!(validTypes.includes(type))) {
         typeErrors.push("TypeError: Invalid type");
     }
