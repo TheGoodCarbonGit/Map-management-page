@@ -358,7 +358,7 @@ document.getElementById('submitBtn').addEventListener('click', function (e) {
             case "Donor":
                 description = "Our donors provide funding and support to implement projects across New Zealand.";
                 break;
-            case "Store":
+            case "Community":
                 description = "Supporters of The Good Carbon Store provide funding to implement projects across New Zealand.";
                 break;
         }
@@ -480,7 +480,7 @@ function validateType(type) {
         typeErrors.push("TypeError: Please select a category")
     }
 
-    let validTypes = ["Good Friend", "Project", "Carbon Farmer", "Donor", "Store"];
+    let validTypes = ["Good Friend", "Project", "Carbon Farmer", "Donor", "Community"];
     if (!(validTypes.includes(type))) {
         typeErrors.push("TypeError: Invalid type");
     }
