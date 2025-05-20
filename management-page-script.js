@@ -308,8 +308,10 @@ function resetSearch() {
 document.getElementById('submitBtn').addEventListener('click', function (e) {
     e.preventDefault();
     var newname = document.getElementById('locationname').value;
-    var type = document.getElementById('locationtype').value;
+    var dropdown = document.getElementById('locationtype');
+    var type = dropdown.options[dropdown.selectedIndex].text;
     var description = document.getElementById('descriptionfield').value;
+    
 
     // Create list of errors
     var errors = [];
