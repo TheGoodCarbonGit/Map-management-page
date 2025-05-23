@@ -361,7 +361,7 @@ document.getElementById('submitBtn').addEventListener('click', function (e) {
                 description = "Our donors provide funding and support to implement projects across New Zealand.";
                 break;
             case "Community":
-                description = "Supporters of The Good Carbon Store provide funding to implement projects across New Zealand.";
+                description = "Community supporters of The Good Carbon Farm contribute to enhancing and promoting our work.";
                 break;
         }
     }
